@@ -28,9 +28,7 @@ INDEX VERSION 1.126+/Users/yc5518/Desktop/stay_in_line/.metadata/.plugins/org.ec
 3856287488.index
 1833648217.index
 272178059.index
-3143249690.index
 770573466.index
-3028160112.index
 1572706561.index
 1444642300.index
 3266567714.index
