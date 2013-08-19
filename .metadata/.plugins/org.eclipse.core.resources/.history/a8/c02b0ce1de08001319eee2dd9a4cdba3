@@ -1,0 +1,65 @@
+package com.cy45.calendarserver;
+
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.io.IOException;
+import java.net.ServerSocket;
+import java.net.Socket;
+import java.util.List;
+import java.util.Map;
+
+public class SocketUtils {
+	public static void queryEvents() {
+		ServerSocket ss = null;
+		try {
+			ss = new ServerSocket(8099);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		for (;;) {
+			try {
+				System.out.println("Server is running...");
+				final Socket socket = ss.accept();
+				Thread thread = new Thread(new Runnable() {
+
+					@Override
+					public void run() {
+						try {
+							System.out.println(Thread.currentThread().getId());
+							DataInputStream in = new DataInputStream(
+									socket.getInputStream());
+							DataOutputStream out = new DataOutputStream(socket.getOutputStream());
+                            
+							String message = in.readUTF();
+							CalendarServer cs = new CalendarServer();
+							List<Map<String, String>> l = cs.search(message);
+							String msg = null;
+							String str = null;
+							if(!l.equals(null)){
+								for(Map<String,String> l1: l){
+								str = l1.get("participants");
+								System.out.println(str + ": OK with it");
+								msg = str + "$";
+								}
+								out.writeUTF(msg);
+							}
+							in.close();
+							
+                            out.close();
+							socket.close();
+							
+						} catch (Exception e) {
+							e.printStackTrace();
+						}
+					}
+				});
+				thread.start();
+
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+	}
+}

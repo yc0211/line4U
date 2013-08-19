@@ -1,0 +1,1443 @@
+package com.test.Event;
+
+import com.google.api.client.extensions.android2.AndroidHttp;
+import com.google.api.client.googleapis.GoogleHeaders;
+import com.google.api.client.googleapis.GoogleUrl;
+import com.google.api.client.googleapis.MethodOverride;
+import com.google.api.client.googleapis.extensions.android2.auth.GoogleAccountManager;
+import com.google.api.client.http.HttpExecuteInterceptor;
+import com.google.api.client.http.HttpRequest;
+import com.google.api.client.http.HttpRequestInitializer;
+import com.google.api.client.http.HttpResponse;
+import com.google.api.client.http.HttpResponseException;
+import com.google.api.client.http.HttpTransport;
+import com.google.api.client.http.HttpUnsuccessfulResponseHandler;
+import com.google.api.client.util.DateTime;
+import com.google.calendar.api.CalendarClient;
+import com.google.calendar.api.CalendarUrl;
+import com.google.calendar.api.EP;
+import com.google.calendar.api.Location;
+import com.google.calendar.api.When;
+import com.google.calendar.api.EventEntry;
+import com.test.ContentProvider.CalendarMetaData;
+
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.io.IOException;
+import java.net.Socket;
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.TimeZone;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+
+import com.test.calendar.DateWidget;
+import com.test.database.DatabaseHelper;
+
+import android.accounts.Account;
+import android.accounts.AccountManager;
+import android.accounts.AccountManagerCallback;
+import android.accounts.AccountManagerFuture;
+import android.accounts.AuthenticatorException;
+import android.accounts.OperationCanceledException;
+import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.DatePickerDialog;
+import android.app.TimePickerDialog;
+import android.content.ContentValues;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
+import android.net.Uri;
+import android.os.Bundle;
+import android.provider.ContactsContract;
+import android.provider.ContactsContract.CommonDataKinds.Email;
+import android.util.Log;
+import android.view.Gravity;
+import android.view.View;
+import android.view.Window;
+import android.view.View.OnClickListener;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemSelectedListener;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
+import android.widget.DatePicker;
+import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.ScrollView;
+import android.widget.Spinner;
+import android.widget.TextView;
+import android.widget.ToggleButton;
+import android.widget.LinearLayout.LayoutParams;
+import android.widget.TimePicker;
+import android.widget.Toast;
+
+public class createEvent extends Activity{
+	
+//	public static final String SERVER_IP_ADDRESS = "192.168.1.72";
+	public static final String SERVER_IP_ADDRESS = "109.246.4.8";
+//	public static final String SERVER_IP_ADDRESS = "143.210.102.49";
+	private ScrollView sv;
+	private int mYear_start = -1;
+	private int mMonth_start = -1;
+	private int mDay_start  = -1;
+	private int mHour_start = -1;
+	private int mMinute_start = -1;
+	private int mYear_end = -1;
+	private int mMonth_end = -1;
+	private int mDay_end  = -1;
+	private int mHour_end = -1;
+	private int mMinute_end = -1;
+	private int mYear = -1;
+	private int mMonth = -1;
+	private int mDay  = -1;
+	private int mHour = -1;
+	private int mMinute = -1;
+	
+	private Button btnCancel;
+	private Button btnDone;
+	private Button invisible;
+	private TextView topTV;
+	private Button tvStarts;
+	private Button tvEnds;
+	private Button tvStartsTime;
+	private Button tvEndsTime;
+	private Button invitee;
+	private Button delete;
+	private LinearLayout LayoutTop;
+	private LinearLayout layItem;
+	private LinearLayout layMain;
+	private LinearLayout layout[] = new LinearLayout[10];
+	private TextView label[] = new TextView[10];
+	private EditText titleEdit;
+	private EditText locEdit;
+	private EditText noteEdit;
+	private Spinner spRep;
+	private Spinner spAlt;
+	private ArrayAdapter<String> repeat;
+	private ArrayAdapter<String> alert;
+	private ArrayAdapter<String> avail;
+	private String[] mRepeat = { "None", "Every Day", "Every Week", "Every 2 Weeks", "Every Month", "Every Year" };
+	private String[] mAlert = { "None", "5 minutes before", "15 minutes before", "30 minutes before", "1 hour before", "2 hour before", 
+			"1 day before", "2 days before", "On the date of event" };
+	private String[] mAvail = { "Busy", "Free", "Tentative", "Out of office" };
+	private Calendar bSelected = Calendar.getInstance();
+	private Calendar startDate = Calendar.getInstance();
+	private Calendar endDate = Calendar.getInstance();
+	private Calendar startTime = Calendar.getInstance();
+	private Calendar endTime = Calendar.getInstance();
+//	private Calendar currentDate = Calendar.getInstance();
+	private Calendar currentTime = Calendar.getInstance();
+	private CheckBox allDay = null;
+	private int all_day = 0;
+	private int alarm = 0;
+	private int syncStatus = 1;
+	private String cmd;
+	private String titleText = null;
+	private String locText = null;
+	private String id = null;
+	private static String email = null;
+//	private String[] email = null;
+	private String name = null;
+	private int count_Email = 0;
+	private StringBuilder sText5 = new StringBuilder();
+	
+	private static Level LOGGING_LEVEL = Level.CONFIG;
+	//scope of service accessing
+	  private static final String AUTH_TOKEN_TYPE = "cl";
+
+	  private static final String TAG = "CalendarSample";
+
+	  private static final int REQUEST_AUTHENTICATE = 0;
+	  private final HttpTransport transport = AndroidHttp.newCompatibleTransport();
+	  CalendarClient client;
+	  String gsessionid;
+	  String authToken;
+	  String accountName;
+
+	  static final String PREF = TAG;
+	  static final String PREF_ACCOUNT_NAME = "accountName";
+	  static final String PREF_AUTH_TOKEN = "authToken";
+	  static final String PREF_GSESSIONID = "gsessionid";
+	  GoogleAccountManager accountManager;
+	  SharedPreferences settings;
+	
+	@Override
+	public void onCreate(Bundle savedInstanceState) {
+	
+		// TODO Auto-generated method stub
+		super.onCreate(savedInstanceState);
+		requestWindowFeature(Window.FEATURE_NO_TITLE);
+		//===================================
+		DatabaseHelper dbHelper = new DatabaseHelper(createEvent.this,"events.db");
+		SQLiteDatabase db = dbHelper.getReadableDatabase();
+		Cursor cursor = db.query("settings", null, "id=?", new String[]{"1"}, null, null, null);
+		//check if there is setting data
+		if(cursor.getCount()==1){
+			cursor.moveToFirst();
+			//check if synchronization is on
+			if(cursor.getInt((cursor.getColumnIndex("synchronization")))==0){
+			//get token
+			Logger.getLogger("com.google.api.client").setLevel(LOGGING_LEVEL);
+			accountManager = new GoogleAccountManager(this);
+		    settings = this.getSharedPreferences(PREF, 0);
+		    authToken = settings.getString(PREF_AUTH_TOKEN, null);
+		    gsessionid = settings.getString(PREF_GSESSIONID, null);
+		    final MethodOverride override = new MethodOverride(); // needed for PATCH
+		    client = new CalendarClient(transport.createRequestFactory(new HttpRequestInitializer() {
+	
+		      public void initialize(HttpRequest request) {
+		        GoogleHeaders headers = new GoogleHeaders();
+		        headers.setApplicationName("Leicester-cy45/1.0");
+		        headers.gdataVersion = "2";
+		        request.headers = headers;
+		        client.initializeParser(request);
+		        request.interceptor = new HttpExecuteInterceptor() {
+	
+		          public void intercept(HttpRequest request) throws IOException {
+		            GoogleHeaders headers = (GoogleHeaders) request.headers;
+		            headers.setGoogleLogin(authToken);
+		            request.url.set("gsessionid", gsessionid);
+		            override.intercept(request);
+		          }
+		        };
+		        request.unsuccessfulResponseHandler = new HttpUnsuccessfulResponseHandler() {
+	
+		          public boolean handleResponse(
+		              HttpRequest request, HttpResponse response, boolean retrySupported) {
+		            switch (response.statusCode) {
+		              case 302:
+		                GoogleUrl url = new GoogleUrl(response.headers.location);
+		                gsessionid = (String) url.getFirst("gsessionid");
+		                SharedPreferences.Editor editor = settings.edit();
+		                editor.putString(PREF_GSESSIONID, gsessionid);
+		                editor.commit();
+		                return true;
+		              case 401:
+		                accountManager.invalidateAuthToken(authToken);
+		                authToken = null;
+		                SharedPreferences.Editor editor2 = settings.edit();
+		                editor2.remove(PREF_AUTH_TOKEN);
+		                editor2.commit();
+		                return false;
+		            }
+		            return false;
+		          }
+		        };
+		      }
+		    }));
+		    gotAccount();
+			
+			}
+		}
+		db.close();
+		cursor.close();
+		//====================================
+		//get data from intent
+		Intent intent = getIntent();
+		mYear = intent.getIntExtra("mYear", -1);
+		mMonth = intent.getIntExtra("mMonth", -1);
+		mDay = intent.getIntExtra("mDay", -1);
+		mHour = intent.getIntExtra("mHour", -1);
+		mMinute = intent.getIntExtra("mMinute", -1);
+		cmd = intent.getStringExtra("cmd");
+		
+		mYear_start = intent.getIntExtra("mYear_start", -1);
+		mMonth_start = intent.getIntExtra("mMonth_start", -1);
+		mDay_start = intent.getIntExtra("mDay_start", -1);
+		mHour_start = intent.getIntExtra("mHour_start", -1);
+		mMinute_start = intent.getIntExtra("mMinute_start", -1);
+//		System.out.println(mDay_start+  " " + mMonth_start+ " "+ mYear_start);
+		mYear_end = intent.getIntExtra("mYear_end", -1);
+		mMonth_end = intent.getIntExtra("mMonth_end", -1);
+		mDay_end = intent.getIntExtra("mDay_end", -1);
+		mHour_end = intent.getIntExtra("mHour_end", -1);
+		mMinute_end = intent.getIntExtra("mMinute_end", -1);
+		
+		id = intent.getStringExtra("id");
+		
+		setContentView(generateContent());
+		//if this activity is to edit, not add(according to 'cmd'), then read data from ViewEvent 
+		if(mYear == -1 && mYear_start != -1){
+			String ttl = intent.getStringExtra("titleText");
+			String loc = intent.getStringExtra("locText");
+			String note = intent.getStringExtra("noteText");
+			
+			titleEdit.setText(ttl);
+			locEdit.setText(loc);
+			noteEdit.setText(note);
+			spAlt.setSelection(intent.getIntExtra("alarm", -1));
+//			spAva.setSelection(intent.getIntExtra("intAva", -1));
+			allDay.setChecked((intent.getIntExtra("all_day", -1)==1));
+		}
+	}
+	//method to create ToggleButton
+	public static ToggleButton createToggleButton(String sText, int iWidth, int iHeight, Context context){
+		ToggleButton togButton = new ToggleButton(context);
+		sText = "";
+		
+		togButton.setChecked(false);
+		togButton.setLayoutParams(new LayoutParams(iWidth, iHeight));
+		return togButton;
+	}
+	//method to create TextView with parameter weight
+	public static TextView createTextView(String sText, int iWidth, int iHeight, int iWeight, Context context){
+		TextView textView = new TextView(context);
+		textView.setText(sText);
+		textView.setLayoutParams(new LayoutParams(iWidth, iHeight, iWeight));
+		return textView;
+	}
+	//method to create TextView without parameter weight
+	public static TextView createTextView(String sText, int iWidth, int iHeight, Context context){
+		TextView textView = new TextView(context);
+		textView.setText(sText);
+		textView.setLayoutParams(new LayoutParams(iWidth, iHeight));
+		return textView;
+	}
+	
+	public static EditText createEditText(String sText, int iWidth, int iHeight,int iWeight, Context context){
+		EditText editText = new EditText(context);
+		editText.setHint(sText);    //to set hint 
+		editText.setLayoutParams(new LayoutParams(iWidth, iHeight, iWeight));
+		return editText;
+	}
+	
+	public static Spinner createSpinner(ArrayAdapter<String> mString, int iWidth, int iHeight, int iWeight, Context context){
+		Spinner spinner = new Spinner(context);
+		spinner.setAdapter(mString);
+		spinner.setLayoutParams(new LayoutParams(iWidth, iHeight, iWeight));
+		return spinner;
+	}
+	
+	public static Button createButton(String sText, int iWidth, int iHeight, Context context) {
+		Button btn = new Button(context);
+		btn.setText(sText);
+		btn.setLayoutParams(new LayoutParams(iWidth, iHeight));
+		return btn;
+	}
+	
+	public static Button createButton(String sText, int iWidth, int iHeight, int iWeight, Context context) {
+		Button btn = new Button(context);
+		btn.setText(sText);
+		btn.setLayoutParams(new LayoutParams(iWidth, iHeight, iWeight));
+		return btn;
+	}
+	
+	public static CheckBox createCheckBox(String sText, int iWidth, int iHeight, int iWeight, Context context){
+		CheckBox chBox = new CheckBox(context);
+		chBox.setText(sText);
+		chBox.setLayoutParams(new LayoutParams(iWidth, iHeight, iWeight));
+		return chBox;
+	}
+	
+	public static LinearLayout createLayout(int iOrientation, Context context) {
+		
+		LinearLayout lay = new LinearLayout(context);
+		lay.setLayoutParams(new LayoutParams(
+				android.view.ViewGroup.LayoutParams.FILL_PARENT,
+				android.view.ViewGroup.LayoutParams.WRAP_CONTENT));
+		lay.setOrientation(iOrientation);
+		return lay;
+	}
+	//let users to confirm when they tap delete event 
+	private void confirmDialog(){
+		new AlertDialog.Builder(this).setMessage("Delete the event?")
+		.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+			
+			@Override
+			public void onClick(DialogInterface arg0, int arg1) {
+				// TODO Auto-generated method stub
+				Thread thread = new Thread(r) ;
+        		thread.start();
+				Intent intent = new Intent();
+				
+				intent.setClass(createEvent.this, DateWidget.class);
+	    		createEvent.this.startActivity(intent);
+	    		
+			}
+			//delete a event after confirmation
+			Runnable r = new Runnable(){
+	    	
+				@Override
+				public void run() {
+					boolean flag = true;
+					try{
+						Cursor c = getContentResolver().query(
+								CalendarMetaData.EventTableMetaData.CONTENT_URI, 
+								new String[]{CalendarMetaData.EventTableMetaData.ENTRY_ID,
+										CalendarMetaData.EventTableMetaData.SYNC_STATUS},
+								CalendarMetaData.EventTableMetaData._ID + "='" + id + "'",
+								null, 
+								null);
+						c.moveToFirst();
+						if(c.getInt(c.getColumnIndex(CalendarMetaData.EventTableMetaData.SYNC_STATUS)) == 0){
+							CalendarUrl url = new CalendarUrl(CalendarUrl.forDefaultPrivateFullEventFeed() + 
+									"/" + c.getString(c.getColumnIndex(CalendarMetaData.EventTableMetaData.ENTRY_ID)));
+							try{		
+							client.executeDelete(url);
+							}catch(Exception e){
+								e.printStackTrace();
+								System.out.println(e);
+							}
+						}
+						int delete = getContentResolver()
+						.delete(CalendarMetaData.EventTableMetaData.CONTENT_URI, id, null);
+						System.out.println("deleted "+ delete);
+						c.close();
+					}
+					catch (Exception e){
+						flag = false;
+						
+					}
+//					if(!flag){
+//						Toast.makeText(createEvent.this, "Sorry, fail to delete the event, please try again", Toast.LENGTH_SHORT).show();
+//					}
+				}
+		    };
+		}).setNegativeButton("No", new DialogInterface.OnClickListener() {
+			
+			@Override
+			public void onClick(DialogInterface arg0, int arg1) {
+				// TODO Auto-generated method stub
+				
+			}
+		}).show();
+	}
+	
+	private void generateItems(LinearLayout layoutItem){
+		final int lblWidth = 40;
+		String sText1 = new String();
+		String sText2 = new String();
+		String sText3 = new String();
+		String sText4 = new String();
+//		String sText5 = new String();
+		repeat = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item, mRepeat);
+		repeat.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+		alert = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item, mAlert);
+		alert.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+		avail = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item, mAvail);
+		avail.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+		
+		for(int i = 0;i<10;i++){
+			layout[i] = createLayout(LinearLayout.HORIZONTAL, this);
+		}
+		//create UIs
+		
+		//title
+		label[0] = createTextView("Title",android.view.ViewGroup.LayoutParams.FILL_PARENT,android.view.ViewGroup.LayoutParams.WRAP_CONTENT,3,this);
+		if(titleText!= null)
+			titleEdit.setText(titleText);
+		titleEdit = createEditText("Title", android.view.ViewGroup.LayoutParams.FILL_PARENT, android.view.ViewGroup.LayoutParams.WRAP_CONTENT,1,this);
+		titleEdit.setSingleLine();
+		layout[0].addView(label[0]);
+		layout[0].addView(titleEdit);
+		//location
+		label[1] = createTextView("Location",android.view.ViewGroup.LayoutParams.FILL_PARENT,android.view.ViewGroup.LayoutParams.WRAP_CONTENT,3,this);
+		if(locText != null)
+			locEdit.setText(locText);
+		locEdit = createEditText("Location", android.view.ViewGroup.LayoutParams.FILL_PARENT, android.view.ViewGroup.LayoutParams.WRAP_CONTENT,1,this);
+		locEdit.setSingleLine();
+		layout[1].addView(label[1]);
+		layout[1].addView(locEdit);
+		//start time
+		label[2] = createTextView("Start",android.view.ViewGroup.LayoutParams.FILL_PARENT,android.view.ViewGroup.LayoutParams.WRAP_CONTENT,1,this);
+		
+		tvStarts = createButton(sText1,android.view.ViewGroup.LayoutParams.FILL_PARENT,android.view.ViewGroup.LayoutParams.WRAP_CONTENT,1,this);
+		tvStartsTime = createButton(sText3,android.view.ViewGroup.LayoutParams.FILL_PARENT,android.view.ViewGroup.LayoutParams.WRAP_CONTENT,1,this);
+		invisible = createButton("aa",android.view.ViewGroup.LayoutParams.FILL_PARENT,android.view.ViewGroup.LayoutParams.WRAP_CONTENT,1,this);
+		invisible.setVisibility(View.INVISIBLE);
+		layout[2].addView(label[2]);
+		layout[2].addView(tvStarts);
+		layout[2].addView(tvStartsTime);
+		layout[2].addView(invisible);
+		//end time
+		label[3] = createTextView("End",android.view.ViewGroup.LayoutParams.FILL_PARENT,android.view.ViewGroup.LayoutParams.WRAP_CONTENT,1,this);
+		tvEnds = createButton(sText2,android.view.ViewGroup.LayoutParams.FILL_PARENT,android.view.ViewGroup.LayoutParams.WRAP_CONTENT,1,this);
+		tvEndsTime = createButton(sText4,android.view.ViewGroup.LayoutParams.FILL_PARENT,android.view.ViewGroup.LayoutParams.WRAP_CONTENT,1,this);
+		allDay = createCheckBox("All day",android.view.ViewGroup.LayoutParams.FILL_PARENT,android.view.ViewGroup.LayoutParams.WRAP_CONTENT,1,this);
+		allDay.setTextSize(10);
+		layout[3].addView(label[3]);
+		layout[3].addView(tvEnds);
+		layout[3].addView(tvEndsTime);
+		layout[3].addView(allDay);
+		//Repetition
+		label[4] = createTextView("Repeat",android.view.ViewGroup.LayoutParams.FILL_PARENT,android.view.ViewGroup.LayoutParams.WRAP_CONTENT,3,this);
+		spRep = createSpinner(repeat,android.view.ViewGroup.LayoutParams.FILL_PARENT,android.view.ViewGroup.LayoutParams.WRAP_CONTENT,1,this);
+		
+		layout[4].addView(label[4]);
+		layout[4].addView(spRep);
+		//invitee
+		label[5] = createTextView("Invitee",android.view.ViewGroup.LayoutParams.FILL_PARENT,android.view.ViewGroup.LayoutParams.WRAP_CONTENT,3,this);
+		invitee = createButton("",android.view.ViewGroup.LayoutParams.FILL_PARENT,android.view.ViewGroup.LayoutParams.WRAP_CONTENT,1,this);
+		layout[5].addView(label[5]);
+		layout[5].addView(invitee);
+		//alert
+		label[6] = createTextView("Alert",android.view.ViewGroup.LayoutParams.FILL_PARENT,android.view.ViewGroup.LayoutParams.WRAP_CONTENT,3,this);
+		spAlt = createSpinner(alert,android.view.ViewGroup.LayoutParams.FILL_PARENT,android.view.ViewGroup.LayoutParams.WRAP_CONTENT,1,this);
+		layout[6].addView(label[6]);
+		layout[6].addView(spAlt);
+		
+//		label[7] = createTextView("Availability",android.view.ViewGroup.LayoutParams.FILL_PARENT,android.view.ViewGroup.LayoutParams.WRAP_CONTENT,3);
+//		spAva = createSpinner(avail,android.view.ViewGroup.LayoutParams.FILL_PARENT,android.view.ViewGroup.LayoutParams.WRAP_CONTENT,1);
+//		layout[7].addView(label[7]);
+//		layout[7].addView(spAva);
+		//notes
+		label[8] = createTextView("Notes",android.view.ViewGroup.LayoutParams.FILL_PARENT,android.view.ViewGroup.LayoutParams.WRAP_CONTENT,3,this);
+		noteEdit = createEditText("Notes",android.view.ViewGroup.LayoutParams.FILL_PARENT,80,1,this);
+		noteEdit.setGravity(Gravity.TOP);
+		noteEdit.setMaxLines(10);
+		
+		label[8].setGravity(Gravity.TOP);
+		layout[8].addView(label[8]);
+		layout[8].addView(noteEdit);
+		noteEdit.setVerticalScrollBarEnabled(true);
+		noteEdit.setClickable(true);
+		delete = createButton("Delete",lblWidth*4,android.view.ViewGroup.LayoutParams.WRAP_CONTENT,this);
+		layout[9].addView(delete);
+		layout[9].setGravity(Gravity.CENTER_HORIZONTAL);
+		
+		delete.setOnClickListener(new OnClickListener(){
+
+			@Override
+			public void onClick(View v) {
+		
+				// TODO Auto-generated method stub
+				confirmDialog();
+			}
+		});
+		//if it was adding a event, then delete button would not display
+		if (cmd.equals("Add Event")){
+			delete.setVisibility(View.INVISIBLE);
+		}
+		else if(cmd.equals("Edit")){
+			delete.setVisibility(View.VISIBLE);
+		}
+		
+		final SimpleDateFormat dateFull = new SimpleDateFormat("d MMM");
+	//all day check box
+		allDay.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+					
+			@Override
+			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+				// TODO Auto-generated method stub
+				if(isChecked){
+					//time picker would disappear
+					tvEndsTime.setVisibility(View.INVISIBLE);
+					tvStartsTime.setVisibility(View.INVISIBLE);
+					//just set year, month, day of month
+					startTime.set(startDate.get(Calendar.YEAR), startDate.get(Calendar.MONTH), startDate.get(Calendar.DATE), 00, 00, 00);
+					endTime.set(endDate.get(Calendar.YEAR), endDate.get(Calendar.MONTH), endDate.get(Calendar.DATE), 00, 00, 00);
+					
+					tvStartsTime.setText(new StringBuilder().append(format(startTime.get(Calendar.HOUR_OF_DAY))).append(":").append(
+							format(startTime.get(Calendar.MINUTE))));
+					tvEndsTime.setText(new StringBuilder().append(format(endTime.get(Calendar.HOUR_OF_DAY))).append(":").append(
+							format(endTime.get(Calendar.MINUTE))));
+					all_day = 1;
+				}
+				else{
+					tvEndsTime.setVisibility(View.VISIBLE);
+					tvStartsTime.setVisibility(View.VISIBLE);
+					startTime.set(startDate.get(Calendar.YEAR), startDate.get(Calendar.MONTH), startDate
+			    			.get(Calendar.DATE), currentTime.get(Calendar.HOUR_OF_DAY), currentTime.
+			    			get(Calendar.MINUTE),currentTime.get(Calendar.SECOND));
+					endTime.set(endDate.get(Calendar.YEAR), endDate.get(Calendar.MONTH), endDate
+			    			.get(Calendar.DATE), currentTime.get(Calendar.HOUR_OF_DAY), currentTime.
+			    			get(Calendar.MINUTE), currentTime.get(Calendar.SECOND));
+					tvStartsTime.setText(new StringBuilder().append(format(startTime.get(Calendar.HOUR_OF_DAY))).append(":").append(
+							format(startTime.get(Calendar.MINUTE))));
+					tvEndsTime.setText(new StringBuilder().append(format(endTime.get(Calendar.HOUR_OF_DAY))).append(":").append(
+							format(endTime.get(Calendar.MINUTE))));
+					all_day = 0;
+				}
+			}
+		});
+		//if the user clicks the button to choose an invitee
+		invitee.setOnClickListener(new OnClickListener(){
+
+			@Override
+			public void onClick(View arg0) {
+				// TODO Auto-generated method stub
+				//check if there is a set account(email address, which is used for identification among users)
+				DatabaseHelper dbHelper = new DatabaseHelper(createEvent.this,"events.db");
+				SQLiteDatabase db = dbHelper.getReadableDatabase();
+				Cursor cursor = db.query("settings", null, "id=?", new String[]{"1"}, null, null, null);
+				if(cursor.getCount()!=0){
+					cursor.moveToFirst();
+				}
+				if(cursor.getCount()==0){
+					Toast.makeText(createEvent.this, "Please set an account for invitation in Settings.", Toast.LENGTH_LONG).show();
+				}else if(cursor.getString(cursor.getColumnIndex("accountName")) == null){
+					Toast.makeText(createEvent.this, "Please set an account for invitation in Settings.", Toast.LENGTH_LONG).show();
+				}else{
+				  Intent i = new Intent(Intent.ACTION_PICK,Email.CONTENT_URI);
+                  i.setType("vnd.android.cursor.dir/phone");
+                  //start contacts to pick up an item
+                  startActivityForResult(i, 0);
+					//==================
+//					Intent i = new Intent(Intent.ACTION_GET_CONTENT, Email.CONTENT_URI);
+//					startActivityForResult(Intent.createChooser(i, ""), 0);
+				}
+				cursor.close();
+				db.close();
+//				Intent intent_contacts = new Intent(Intent.ACTION_PICK,ContactsContract.Contacts.CONTENT_URI);
+//                /*contacts.setAction(android.content.Intent.ACTION_VIEW);
+//                contacts.setData(People.CONTENT_URI);*/
+//                startActivityForResult(intent_contacts, 0);
+                //displayContacts();
+				
+//				Intent i = new Intent(Intent.ACTION_GET_CONTENT, Email.CONTENT_URI);
+//				startActivityForResult(Intent.createChooser(i, ""), 1);
+				
+//				sText5 = sText5.append(name).append(" ");
+//				invitee.setText(sText5.append(name).append(" "));
+//				invitee.setSingleLine();
+//				Intent i = new Intent(Intent.ACTION_GET_CONTENT,Email.CONTENT_URI);
+//				 i.setType("vnd.android.cursor.dir/phone");
+////				i.setType("text/plain");
+//				startActivityForResult(i, 1);
+			}
+		});
+		//if 'cmd' is 'Add Event', not 'Edit'
+		if (mYear != -1 && mYear_start == -1){
+			bSelected.set(mYear, mMonth, mDay);
+			currentTime.set(mYear, mMonth, mDay, mHour, mMinute);
+			startDate.set(bSelected.get(Calendar.YEAR), bSelected.get(Calendar.MONTH), bSelected.get(Calendar.DATE));
+			endDate.set(bSelected.get(Calendar.YEAR), bSelected.get(Calendar.MONTH), bSelected.get(Calendar.DATE));
+			tvStarts.setText(new StringBuilder().append(dateFull.format(bSelected.getTime())));
+			tvEnds.setText(new StringBuilder().append(dateFull.format(bSelected.getTime())));
+			startTime.set(startDate.get(Calendar.YEAR), startDate.get(Calendar.MONTH), startDate
+	    			.get(Calendar.DATE), startTime.get(Calendar.HOUR_OF_DAY), startTime.get(Calendar.MINUTE));
+			endTime.set(endDate.get(Calendar.YEAR), endDate.get(Calendar.MONTH), endDate
+	    			.get(Calendar.DATE), endTime.get(Calendar.HOUR_OF_DAY), endTime.get(Calendar.MINUTE));
+			tvStartsTime.setText(new StringBuilder().append(format(startTime.get(Calendar.HOUR_OF_DAY))).append(":").append(
+					format(startTime.get(Calendar.MINUTE))));
+			tvEndsTime.setText(new StringBuilder().append(format(endTime.get(Calendar.HOUR_OF_DAY))).append(":").append(
+					format(endTime.get(Calendar.MINUTE))));
+			}
+			//if 'cmd' is 'Edit', not 'Add Event'
+			else if(mYear == -1 && mYear_start != -1){
+				invitee.setClickable(false);
+				startDate.set(mYear_start,mMonth_start,mDay_start);
+				endDate.set(mYear_end,mMonth_end,mDay_end);		
+				startTime.set(mYear_start,mMonth_start,mDay_start,mHour_start,mMinute_start);
+				endTime.set(mYear_end,mMonth_end,mDay_end,mHour_end,mMinute_end);
+				tvStarts.setText(new StringBuilder().append(dateFull.format(startDate.getTime())));
+				tvEnds.setText(new StringBuilder().append(dateFull.format(endDate.getTime())));
+				tvStartsTime.setText(new StringBuilder().append(format(startTime.get(Calendar.HOUR_OF_DAY))).append(":").append(
+					format(startTime.get(Calendar.MINUTE))));
+				tvEndsTime.setText(new StringBuilder().append(format(endTime.get(Calendar.HOUR_OF_DAY))).append(":").append(
+					format(endTime.get(Calendar.MINUTE))));
+
+
+			}
+		//start date button's listener
+		tvStarts.setOnClickListener(new OnClickListener(){
+			public void onClick(View v) {
+
+				// TODO Auto-generated method stub
+				new DatePickerDialog(createEvent.this,
+                        new DatePickerDialog.OnDateSetListener() {
+                            @Override
+                            public void onDateSet(DatePicker view, int year,
+                                    int monthOfYear, int dayOfMonth) {
+                                // TODO Auto-generated method stub
+                            	startDate.set( year, monthOfYear, dayOfMonth);
+                            	tvStarts.setText(new StringBuilder().append(dateFull.format(startDate.getTime())));
+                            	startTime.set(year, monthOfYear, dayOfMonth, startTime.get(Calendar.HOUR_OF_DAY), startTime.get(Calendar.MINUTE));
+                            	
+                            	if(startDate.after(endDate)){
+                            		Toast.makeText(createEvent.this, "Please check end date", Toast.LENGTH_SHORT).show();
+                            	}
+                                
+                            	}
+                            
+                        }, startDate.get(Calendar.YEAR),startDate.get(Calendar.MONTH) ,startDate.get(Calendar.DATE) ).show();
+            }
+		});
+		
+		//end date button's listener
+//===============================================================================================
+		tvEnds.setOnClickListener(new OnClickListener(){
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+                new DatePickerDialog(createEvent.this,
+                        new DatePickerDialog.OnDateSetListener() {
+                			
+                            @Override
+                            public void onDateSet(DatePicker view, int year,
+                                    int monthOfYear, int dayOfMonth) {
+                                // TODO Auto-generated method stub
+                            	endDate.set(year, monthOfYear, dayOfMonth);
+                            	endTime.set(year, monthOfYear, dayOfMonth, endTime.get(Calendar.HOUR_OF_DAY), endTime.get(Calendar.MINUTE));
+                        		tvEnds.setText(new StringBuilder().append(dateFull.format(endDate.getTime())));
+                            	if(endDate.before(startDate)){
+                            		Toast.makeText(createEvent.this, "Please check start date", Toast.LENGTH_SHORT).show();
+                            	}
+                            }
+                        }, endDate.get(Calendar.YEAR), endDate
+                                .get(Calendar.MONTH), endDate
+                                .get(Calendar.DATE)).show();
+            }
+		});
+		
+		//===============================================================================
+		
+		//start time
+		tvStartsTime.setOnClickListener(new OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                // TODO Auto-generated method stub
+            	new TimePickerDialog(createEvent.this,
+                        new TimePickerDialog.OnTimeSetListener() {
+                            @Override
+                            public void onTimeSet(TimePicker view,
+                                    int hourOfDay, int minute) {
+                                // TODO Auto-generated method stub
+                            	
+                            	startTime.set(startDate.get(Calendar.YEAR), startDate.get(Calendar.MONTH), startDate
+                            			.get(Calendar.DATE), hourOfDay, minute);//???????????
+                            	tvStartsTime.setText(new StringBuilder().append(format(hourOfDay)).append(":").append(
+                        				format(minute)));
+                            	if(startTime.after(endTime)){
+                                		Toast.makeText(createEvent.this, "Please check date or time", Toast.LENGTH_SHORT).show();
+                            	}
+                            }
+                        }, startTime.get(Calendar.HOUR_OF_DAY), startTime
+                                .get(Calendar.MINUTE), true).show();
+            }
+        });
+		
+		//===============================================================================
+		tvEndsTime.setOnClickListener(new OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                // TODO Auto-generated method stub
+                new TimePickerDialog(createEvent.this,
+                        new TimePickerDialog.OnTimeSetListener() {
+
+                            @Override
+                            public void onTimeSet(TimePicker view,
+                                    int hourOfDay, int minute) {
+                                // TODO Auto-generated method stub
+                            	endTime.set(endDate.get(Calendar.YEAR), endDate.get(Calendar.MONTH), endDate
+                        				.get(Calendar.DATE), hourOfDay, minute);
+                            	tvEndsTime.setText(new StringBuilder().append(format(hourOfDay)).append(":").append(
+                        				format(minute)));
+                            	if(startTime.after(endTime)){
+                            		if(startDate.after(endDate)){
+                                		Toast.makeText(createEvent.this, "Please check date", Toast.LENGTH_SHORT).show();
+                            		}
+                            		else{
+                            			Toast.makeText(createEvent.this, "Please check end time", Toast.LENGTH_SHORT).show();
+                            		}
+                            	}
+                            }
+                        }, endTime.get(Calendar.HOUR_OF_DAY), endTime
+                                .get(Calendar.MINUTE), true).show();
+            }
+        });
+		
+		
+		for(int i = 0;i<10;i++){
+			layItem.addView(layout[i]);
+		}
+		//============================================================================
+		//set repetition
+		spRep.setOnItemSelectedListener(new OnItemSelectedListener(){
+			@Override
+			public void onItemSelected(AdapterView<?> arg0, View arg1,
+					int arg2, long arg3) {
+				// TODO Auto-generated method stub
+				if(arg0.getAdapter() == repeat)
+					switch (arg2) {
+
+					case 0:
+						
+						break;
+					case 1:
+						
+						break;
+					case 2:
+						
+						break;
+					case 3:
+						
+						break;
+					case 4:
+						
+						break;
+					default:
+						
+						break;
+					}
+			}
+
+			@Override
+			public void onNothingSelected(AdapterView<?> arg0) {
+				// TODO Auto-generated method stub
+				
+			}
+			});
+		//========================================================================
+		//set alert
+		spAlt.setOnItemSelectedListener(new OnItemSelectedListener(){
+			
+			@Override
+			public void onItemSelected(AdapterView<?> arg0, View arg1,
+					int arg2, long arg3) {
+//				calAlt.set(startTime.get(Calendar.YEAR), startTime.get(Calendar.MONTH), 
+//						startTime.get(Calendar.DATE), startTime.get(Calendar.HOUR_OF_DAY), startTime.get(Calendar.MINUTE));
+				// TODO Auto-generated method stub
+				if(arg0.getAdapter() == alert)
+					switch (arg2) {
+
+					case 0:
+						alarm = 0;
+						break;
+					case 1:
+						alarm = 1;
+						break;
+					case 2:
+						alarm = 2;
+						break;
+					case 3:
+						alarm = 3;
+						break;
+					case 4:
+						alarm = 4;
+						break;
+					case 5:
+						alarm = 5;
+						break;
+					case 6:
+						alarm = 6;
+						break;
+					case 7:
+						alarm = 7;
+						break;
+					default:
+						alarm = 8;
+						break;
+					}
+			}
+
+			@Override
+			public void onNothingSelected(AdapterView<?> arg0) {
+				// TODO Auto-generated method stub
+				
+			}
+			});
+		
+		//======================================================================
+//		spAva.setOnItemSelectedListener(new OnItemSelectedListener(){
+//
+//			@Override
+//			public void onItemSelected(AdapterView<?> arg0, View arg1,
+//					int arg2, long arg3) {
+//				// TODO Auto-generated method stub
+//				if(arg0.getAdapter() == avail)
+//					switch (arg2) {
+//
+//					case 0:
+//						intAva = 0;
+//						break;
+//					case 1:
+//						intAva = 1;
+//						break;
+//					case 2:
+//						intAva = 2;
+//						break;
+//					default:
+//						intAva = 3;
+//						break;
+//					}
+//			}
+//
+//			@Override
+//			public void onNothingSelected(AdapterView<?> arg0) {
+//				// TODO Auto-generated method stub
+//				
+//			}
+//			});
+	}
+	//if the user click to choose an invitee, this method will lead to a view to choose a contact
+	protected void onActivityResult(int requestCode, int resultCode,Intent data){
+        super.onActivityResult(requestCode, resultCode, data);
+		String id;
+        switch(requestCode)
+        {
+        case 0:
+            {
+                if(resultCode == RESULT_OK ){
+                    Uri contactdata  = data.getData();
+                    String contact_id = null;
+                    Cursor cur = managedQuery(contactdata, null, null, null, null);
+      //======================              
+//                    int count = cur.getCount();
+//                    
+//                    String[] name = new String[count];
+//                    email = new String[count];
+//                    
+//                    id = cur.getString(cur.getColumnIndex(ContactsContract.Contacts._ID));
+//                    Cursor emailCur = getContentResolver().query(ContactsContract.CommonDataKinds.Email.CONTENT_URI,null,
+//                            null,null, null);
+//
+//                    while(emailCur.moveToNext()){
+//                    	 if(!getContentResolver().query(ContactsContract.CommonDataKinds.Email.CONTENT_URI,null,
+//                                 null, null, null).equals(null)){
+//                    	
+//                    		 name[count_Email] = cur.getString(cur.getColumnIndexOrThrow(ContactsContract.Contacts.DISPLAY_NAME));
+//            			
+//                    		 email[count_Email] = emailCur.getString(emailCur.getColumnIndex(ContactsContract.CommonDataKinds.Email.DATA));
+//                    		 count_Email++;
+//                    	 }else
+//                    		 Toast.makeText(createEvent.this, "No email address found", Toast.LENGTH_SHORT).show();
+//            		}
+                    //============================
+                    if(cur.moveToFirst()){
+                        id = cur.getString(cur.getColumnIndex(ContactsContract.Contacts._ID));
+                        Cursor contactIdCur = getContentResolver().query(ContactsContract.Data.CONTENT_URI, 
+                        		new String[]{ContactsContract.Data.CONTACT_ID}, ContactsContract.Data._ID + "=?", new String[]{id}, null);
+                        if(contactIdCur.moveToFirst()){
+                        	contact_id = contactIdCur.getString(contactIdCur.getColumnIndex(ContactsContract.Data.CONTACT_ID));
+                        }
+                        Cursor emailCur = getContentResolver().query(Email.CONTENT_URI,null,
+                        		ContactsContract.CommonDataKinds.Email.CONTACT_ID + " = ?",new String[]{contact_id}, null);
+                        if(emailCur.getCount()!=0){
+                                //
+                                int count = emailCur.getCount();
+                                int Columncount = emailCur.getColumnCount();
+                                emailCur.moveToFirst();
+//                                contact_id = emailCur.getString(columnIndex)
+                                int emailid = emailCur.getColumnIndex(Email.DATA);
+                                email = emailCur.getString(emailid);       
+                                name = cur.getString(cur.getColumnIndexOrThrow(ContactsContract.Contacts.DISPLAY_NAME));
+                                System.out.println(name + "---->" + email);
+                                invitee.setText(name);
+                        }else{
+                                Toast.makeText(createEvent.this, "No email address is found", Toast.LENGTH_SHORT).show();
+                               
+                        }
+                    }
+                }
+            }
+        }
+    }
+	
+	private void generateTop(LinearLayout LayoutTop){
+		btnCancel = createButton("Cancel", android.view.ViewGroup.LayoutParams.FILL_PARENT, android.view.ViewGroup.LayoutParams.WRAP_CONTENT,2,this);
+		
+		topTV = createTextView(cmd, android.view.ViewGroup.LayoutParams.FILL_PARENT, android.view.ViewGroup.LayoutParams.WRAP_CONTENT,1,this);
+		topTV.setTextSize(20);
+		topTV.setGravity(Gravity.CENTER_HORIZONTAL);
+		btnDone = createButton("Done", android.view.ViewGroup.LayoutParams.FILL_PARENT, android.view.ViewGroup.LayoutParams.WRAP_CONTENT,2,this);
+		//if it is to add an event
+		if(cmd.equals("Add Event")){
+			btnDone.setOnClickListener(new OnClickListener(){//create an event
+
+				@Override
+				public void onClick(View v) {
+					// TODO Auto-generated method stub
+					//insert data to database
+					if(startTime.after(endTime)){
+                		Toast.makeText(createEvent.this, "Please check end date", Toast.LENGTH_SHORT).show();
+                	}else{
+                		Thread thread = new Thread(r) ;
+                		thread.start();
+                	}
+					count_Email = 0;
+					sText5 = new StringBuilder();
+				}
+					
+				Runnable r = new Runnable(){
+		    	
+					@Override
+					public void run() {
+						boolean flag = true;
+						ContentValues events = new ContentValues();
+						Timestamp start = new Timestamp(startTime.getTimeInMillis());
+						Timestamp end = new Timestamp(endTime.getTimeInMillis());
+						
+						SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy");
+						
+						String startText = (format.format((startTime.getTime()))).toString();
+						
+						String title = null;
+						title = titleEdit.getText().toString();
+						
+						events.put(CalendarMetaData.EventTableMetaData.TITLE, title);
+						events.put(CalendarMetaData.EventTableMetaData.LOCATION,locEdit.getText().toString());
+						events.put(CalendarMetaData.EventTableMetaData.START, start.getTime());
+						events.put(CalendarMetaData.EventTableMetaData.END, end.getTime());
+						events.put(CalendarMetaData.EventTableMetaData.START_TEXT, startText);
+						events.put(CalendarMetaData.EventTableMetaData.TIME_ZONE, TimeZone.LONG);
+						events.put(CalendarMetaData.EventTableMetaData.DESCRIPTION, noteEdit.getText().toString());
+						events.put(CalendarMetaData.EventTableMetaData.ALL_DAY, all_day);
+						events.put(CalendarMetaData.EventTableMetaData.HAS_ALARM, alarm);
+//						events.put(CalendarMetaData.EventTableMetaData.AVAILIBILITY, intAva);
+						DatabaseHelper dbHelper = new DatabaseHelper(createEvent.this,"events.db");
+						SQLiteDatabase db = dbHelper.getReadableDatabase();
+						Cursor cursor = db.query("settings", null, "id=?", new String[]{"1"}, null, null, null);
+						//check if to synchronise
+						if(cursor.getCount()==0){
+							syncStatus = 1;
+						}
+						else{
+							cursor.moveToFirst();
+							syncStatus = cursor.getInt((cursor.getColumnIndex("synchronization")));
+						}
+						events.put(CalendarMetaData.EventTableMetaData.SYNC_STATUS, syncStatus);
+					
+						try{
+						Uri uri = getContentResolver()
+						.insert(
+								CalendarMetaData.EventTableMetaData.CONTENT_URI,
+								events);
+						}
+						catch (Exception e){
+							flag = false;
+						}
+						if(flag){
+							Intent intent = new Intent();
+							intent.setClass(createEvent.this, DateWidget.class);
+				    		createEvent.this.startActivity(intent);
+//				    		System.out.println("inserted");
+				    		
+				    		/////==========
+				    		
+				    		if(cursor.getCount()==1){
+				    			cursor.moveToFirst();
+				    			//to synchronize
+				    			if(cursor.getInt((cursor.getColumnIndex("synchronization")))==0){
+				    				SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd");
+//				    				SimpleDateFormat format2 = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ");
+				    				CalendarUrl url = CalendarUrl.forDefaultPrivateFullEventFeed();
+							        EventEntry event = new EventEntry();
+							        event.title = titleEdit.getText().toString(); 
+							        When when = new When(); 
+									when.startTime = new DateTime(startTime.getTime(),TimeZone.getDefault());
+									when.endTime = new DateTime(endTime.getTime(),TimeZone.getDefault());
+							        //if it is an all day event, format date
+							        if(all_day == 1){
+							        	when.startTime = DateTime.parseRfc3339(format1.format(startTime.getTime()));
+										when.endTime = DateTime.parseRfc3339(format1.format(endTime.getTime()));
+							        }
+							       
+							        event.when = when;
+							        
+							        event.content = noteEdit.getText().toString();
+							        Location loc = new Location();
+							        loc.where = locEdit.getText().toString();
+							        event.loc = loc;
+							        
+							        Cursor c = getContentResolver().query(
+											CalendarMetaData.EventTableMetaData.CONTENT_URI, 
+											new String[]{CalendarMetaData.EventTableMetaData._ID},
+											null, null, null);
+							        c.moveToLast();
+							        String id = c.getString(c.getColumnIndex(CalendarMetaData.EventTableMetaData._ID));
+							        c.close();
+//							        System.out.println("id---" + id);
+							        //update id of an event in local database to be value of extendedProperties of Google Calendar
+							        EP ep = new EP();
+							        ep.name = "myCal_ID";
+							        ep.value = id;
+							        event.ep = ep;
+//							        System.out.println(id);
+							        try {
+							        	EventEntry inserted = client.executeInsertEvent(event, url);
+								        ContentValues cv = new ContentValues();
+								        //download etag and entryID to local database, which are used for judging if the event is 
+								        //edited after comparison of etag and retrieving specific event 
+								        cv.put(CalendarMetaData.EventTableMetaData.ENTRY_ID, inserted.id.substring(52));
+								        cv.put(CalendarMetaData.EventTableMetaData.ETAG, inserted.entry);
+								        int row = getContentResolver()
+											.update(CalendarMetaData.EventTableMetaData.CONTENT_URI, cv, null, new String[]{id});
+//							          System.out.println(e);
+							        } catch (IOException exception) {
+							          // TODO Auto-generated catch block
+							          exception.printStackTrace();
+							        } 
+				    			}
+				    		}
+				    	//if users choose an invitee, then send invitation
+				    	if(!invitee.getText().equals("")){
+				    		String sender = cursor.getString(cursor.getColumnIndex("accountName"));
+				    		
+					    	try{
+					    		String location = locEdit.getText().toString();
+					    		String note = noteEdit.getText().toString();
+					    		Socket socket = new Socket(SERVER_IP_ADDRESS,8099);
+					            DataOutputStream out = new DataOutputStream(socket.getOutputStream());
+					            if(title.equals(""))
+					            	title = " ";
+					            if(location.equals(""))
+					            	location = " ";
+					            if(note.equals(""))
+					            	note = " ";
+//					            String email_1 = null;
+//					            for(int i=0;i<email.length;i++)
+//					            	email_1 = email_1+";"+email[i];
+					            String message = "send:" + email + "," + title + "," +location + "," + 
+			            		startTime.getTime() + "," + endTime.getTime() + "," + all_day + "," + note + "," + sender;
+					            
+					            out.writeUTF(message);
+//					            System.out.println(message);
+					            DataInputStream in = new DataInputStream(socket.getInputStream());  
+					            System.out.println(in.readUTF()); 
+					            socket.close();	
+					    	}catch(IOException e){
+					    		e.printStackTrace();
+					    	}
+				    	}
+						}
+						else{
+//							Toast.makeText(createEvent.this, "Sorry, fail to add the event, please try again", Toast.LENGTH_SHORT).show();
+						}
+						cursor.close();
+						db.close();
+					}
+			    };
+			});
+			btnCancel.setOnClickListener(new OnClickListener(){//back to calendar
+
+				@Override
+				public void onClick(View arg0) {
+					// TODO Auto-generated method stub
+					onBackPressed();
+				}
+			});
+		}
+		//if the it is to edit an event
+		else if(cmd.equals("Edit")) {
+			btnDone.setOnClickListener(new OnClickListener(){//update event
+
+				@Override
+				public void onClick(View arg0) {
+					// TODO Auto-generated method stub
+					if(startTime.after(endTime)){
+                		Toast.makeText(createEvent.this, "Please check end date", Toast.LENGTH_SHORT).show();
+                	}else{
+                		Thread thread = new Thread(r) ;
+                		thread.start();
+                	}
+				}
+				
+				Runnable r = new Runnable(){
+			    	
+					@Override
+					public void run() {
+						boolean flag = true;
+						ContentValues events = new ContentValues();
+						
+						DatabaseHelper dbHelper = new DatabaseHelper(createEvent.this,"events.db");
+						SQLiteDatabase db = dbHelper.getReadableDatabase();
+						Cursor cursor = db.query("settings", null, "id=?", new String[]{"1"}, null, null, null);
+						cursor.moveToFirst();
+						
+						
+						Timestamp start = new Timestamp(startTime.getTimeInMillis());
+						Timestamp end = new Timestamp(endTime.getTimeInMillis());
+						SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy");
+						String startText = (format.format((startTime.getTime()))).toString();
+						
+						String title = null;
+						title = titleEdit.getText().toString();
+						
+						events.put(CalendarMetaData.EventTableMetaData.TITLE, title);
+						events.put(CalendarMetaData.EventTableMetaData.LOCATION,locEdit.getText().toString());
+						events.put(CalendarMetaData.EventTableMetaData.START, start.getTime());
+						events.put(CalendarMetaData.EventTableMetaData.END, end.getTime());
+						events.put(CalendarMetaData.EventTableMetaData.START_TEXT,startText);
+//						events.put(CalendarMetaData.EventTableMetaData.TIME_ZONE, TimeZone.LONG);
+						events.put(CalendarMetaData.EventTableMetaData.DESCRIPTION, noteEdit.getText().toString());
+						events.put(CalendarMetaData.EventTableMetaData.ALL_DAY, all_day);
+						events.put(CalendarMetaData.EventTableMetaData.HAS_ALARM, alarm);
+						events.put(CalendarMetaData.EventTableMetaData.SYNC_STATUS, cursor.getInt((cursor.getColumnIndex("synchronization"))));
+//						events.put(CalendarMetaData.EventTableMetaData.AVAILIBILITY, intAva);
+						
+						
+						try{
+				    		Cursor c = getContentResolver().query(
+				    				CalendarMetaData.EventTableMetaData.CONTENT_URI, 
+				    				new String[]{CalendarMetaData.EventTableMetaData.SYNC_STATUS,
+				    						CalendarMetaData.EventTableMetaData.ENTRY_ID},
+				    				CalendarMetaData.EventTableMetaData._ID + "='" + id + "'",
+				    				null, 
+				    				null);
+				    		
+				    		c.moveToFirst();
+				    		
+				    		int flag1 = c.getInt(c.getColumnIndex(CalendarMetaData.EventTableMetaData.SYNC_STATUS));
+				    		
+				    		
+				    		if(cursor.getCount()==1){
+				    			SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd");
+				    			//if it needs to be synchronise according to settings
+				    			if(cursor.getInt((cursor.getColumnIndex("synchronization")))==0){
+				    				if(flag1==1){//if this edited event has not synchronised before, then insert the event to Google Calendar
+					    				CalendarUrl url = CalendarUrl.forDefaultPrivateFullEventFeed();
+								        EventEntry event = new EventEntry();
+								        event.title = titleEdit.getText().toString(); 
+								        When when = new When(); 
+										when.startTime = new DateTime(startTime.getTime(),TimeZone.getDefault());
+										when.endTime = new DateTime(endTime.getTime(),TimeZone.getDefault());
+										
+										if(all_day == 1){
+								        	when.startTime = DateTime.parseRfc3339(format1.format(startTime.getTime()));
+											
+											when.endTime = DateTime.parseRfc3339(format1.format(endTime.getTime()));
+								        }
+								        event.when = when;
+								        event.content = noteEdit.getText().toString();
+								        Location loc = new Location();
+								        loc.where = locEdit.getText().toString();
+								        event.loc = loc;
+								        
+								       
+								        EP ep = new EP();
+								        ep.name = "myCal_ID";
+								        ep.value = id;
+								        event.ep = ep;
+								        try {
+								          EventEntry inserted = client.executeInsertEvent(event, url);
+								          ContentValues cv = new ContentValues();
+								          cv.put(CalendarMetaData.EventTableMetaData.ENTRY_ID, inserted.id.substring(52));
+								          cv.put(CalendarMetaData.EventTableMetaData.ETAG, inserted.entry);
+								          int row = getContentResolver()
+											.update(CalendarMetaData.EventTableMetaData.CONTENT_URI, cv, null, new String[]{id});
+								        } catch (IOException exception) {
+								          // TODO Auto-generated catch block
+								          exception.printStackTrace();
+								        } 
+				    				}else{//else just update
+				    					CalendarUrl url_event = new CalendarUrl(CalendarUrl.forDefaultPrivateFullEventFeed() +
+				    							"/" + c.getString(c.getColumnIndex(CalendarMetaData.EventTableMetaData.ENTRY_ID)));
+										EventEntry event ;
+										
+				    					try {
+											event = client.executeGetEventEntry(url_event);
+											event.title = titleEdit.getText().toString(); 
+									        When when = new When(); 
+									        when.startTime = new DateTime(startTime.getTime(),TimeZone.getDefault());
+									        when.endTime = new DateTime(endTime.getTime(),TimeZone.getDefault());
+									        if(all_day == 1){
+									        	when.startTime = DateTime.parseRfc3339(format1.format(startTime.getTime()));
+												endTime.set(endTime.get(Calendar.YEAR), endTime.get(Calendar.MONTH), endTime.get(Calendar.DAY_OF_MONTH)+1);
+												when.endTime = DateTime.parseRfc3339(format1.format(endTime.getTime()));
+												System.out.println(format1.format(endTime.getTime()));
+									        }
+									        event.when = when;
+									        
+									        event.content = noteEdit.getText().toString();
+									        Location loc = new Location();
+									        loc.where = locEdit.getText().toString();
+									        event.loc = loc;
+									        EventEntry ee = client.executePutEvent(event);
+									        
+										    ContentValues cv = new ContentValues();
+										    cv.put(CalendarMetaData.EventTableMetaData.ETAG,ee.id.substring(52));
+										    int row = getContentResolver()
+												.update(CalendarMetaData.EventTableMetaData.CONTENT_URI, cv, null, new String[]{id});
+									        
+										} catch (IOException e1) {
+											// TODO Auto-generated catch block
+											e1.printStackTrace();
+											System.out.println(e1);
+										} 
+				    				}
+				    			}
+				    		}
+						int row = getContentResolver()
+						.update(CalendarMetaData.EventTableMetaData.CONTENT_URI, events, null, new String[]{id});
+						c.close();
+						}
+						catch (Exception e){
+							flag = false;
+							System.out.println(e);
+						}
+						if(flag){//if success, go to DageWidget activity
+							Intent intent = new Intent();
+							intent.setClass(createEvent.this, DateWidget.class);
+				    		createEvent.this.startActivity(intent);
+						}
+						else{//else, remind. But generally, it will succeed
+							Toast.makeText(createEvent.this, "Sorry, fail to update the event, please try again", Toast.LENGTH_SHORT).show();
+						}
+						cursor.close();
+						db.close();
+						
+					}
+			    };
+			});
+			
+			btnCancel.setOnClickListener(new OnClickListener(){//back to Edit view
+
+				@Override
+				public void onClick(View arg0) {
+					// TODO Auto-generated method stub
+					onBackPressed();
+				}});
+		}
+		topTV.setGravity(Gravity.CENTER);
+		LayoutTop.setGravity(Gravity.CENTER_HORIZONTAL);
+		LayoutTop.addView(btnCancel);
+		LayoutTop.addView(topTV);
+		LayoutTop.addView(btnDone);
+	}
+	
+	private View generateContent() {
+		sv = new ScrollView(this);
+		
+		layItem = createLayout(LinearLayout.VERTICAL,this);
+		layMain = createLayout(LinearLayout.VERTICAL,this);
+		LayoutTop = createLayout(LinearLayout.HORIZONTAL,this);
+		generateTop(LayoutTop);
+		layMain.addView(LayoutTop);
+		generateItems(layItem);
+		sv.addView(layItem);
+		layMain.addView(sv);
+		
+		return layMain;
+	}
+
+	void setAuthToken(String authToken) {
+	    SharedPreferences.Editor editor = settings.edit();
+	    editor.putString(PREF_AUTH_TOKEN, authToken);
+	    editor.commit();
+	    this.authToken = authToken;
+	  }
+
+	void setAccountName(String accountName) {
+	    SharedPreferences.Editor editor = settings.edit();
+	    editor.putString(PREF_ACCOUNT_NAME, accountName);
+	    editor.remove(PREF_GSESSIONID);
+	    editor.commit();
+	    this.accountName = accountName;
+	    
+	    DatabaseHelper dbHelper = new DatabaseHelper(createEvent.this,"events.db");
+		SQLiteDatabase db = dbHelper.getWritableDatabase();
+		Cursor cursor = db.query("settings", new String[]{"accountName"}, null, null, null, null, null);
+		cursor.moveToFirst();
+	   
+		ContentValues values = new ContentValues();
+		values.put("accountName",accountName);
+		if(cursor.getCount()==0){
+			
+			db.insert("settings", null, values);
+		}else{
+			db.update("settings", values, "id=?", new String[]{"1"});
+		}
+	    gsessionid = null;
+	    System.out.println("setAccountName");
+	    db.close();
+	  }
+	
+	private void gotAccount() {
+		DatabaseHelper dbHelper = new DatabaseHelper(createEvent.this,"events.db");
+		SQLiteDatabase db = dbHelper.getWritableDatabase();
+		Cursor cursor = db.query("settings", new String[]{"accountName"}, null, null, null, null, null);
+		cursor.moveToFirst();
+		
+	    Account account = accountManager.getAccountByName(cursor.getString(cursor.getColumnIndex("accountName")));
+	    cursor.close();
+	    db.close();
+	    if (account != null) {
+	      // handle invalid token
+	      if (authToken == null) {
+	        accountManager.manager.getAuthToken(
+	            account, AUTH_TOKEN_TYPE, true, new AccountManagerCallback<Bundle>() {
+
+	              public void run(AccountManagerFuture<Bundle> future) {
+	                try {
+	                  Bundle bundle = future.getResult();
+	                  if (bundle.containsKey(AccountManager.KEY_INTENT)) {
+	                    Intent intent = bundle.getParcelable(AccountManager.KEY_INTENT);
+	                    int flags = intent.getFlags();
+	                    flags &= ~Intent.FLAG_ACTIVITY_NEW_TASK;
+	                    intent.setFlags(flags);
+	                    startActivityForResult(intent, REQUEST_AUTHENTICATE);
+	                  } else if (bundle.containsKey(AccountManager.KEY_AUTHTOKEN)) {
+	                    setAuthToken(bundle.getString(AccountManager.KEY_AUTHTOKEN));
+	                  }
+	                } catch (Exception e) {
+	                  handleException(e);
+	                }
+	              }
+	            }, null);
+	      } else {
+	      }
+	      return;
+	    }
+	    chooseAccount();
+	  }
+	
+	private void chooseAccount() {
+	    accountManager.manager.getAuthTokenByFeatures(GoogleAccountManager.ACCOUNT_TYPE,
+	        AUTH_TOKEN_TYPE,
+	        null,
+	        createEvent.this,
+	        null,
+	        null,
+	        new AccountManagerCallback<Bundle>() {
+
+	          public void run(AccountManagerFuture<Bundle> future) {
+	            Bundle bundle;
+	            try {
+	              bundle = future.getResult();
+	              setAccountName(bundle.getString(AccountManager.KEY_ACCOUNT_NAME));
+	              setAuthToken(bundle.getString(AccountManager.KEY_AUTHTOKEN));
+	              
+	            } catch (OperationCanceledException e) {
+	              // user canceled
+	            } catch (AuthenticatorException e) {
+	              handleException(e);
+	            } catch (IOException e) {
+	              handleException(e);
+	            }
+	          }
+	        },
+	        null);
+	  }
+	
+	void handleException(Exception e) {
+	    e.printStackTrace();
+	    if (e instanceof HttpResponseException) {
+	      HttpResponse response = ((HttpResponseException) e).response;
+	      int statusCode = response.statusCode;
+	      try {
+	        response.ignore();
+	      } catch (IOException e1) {
+	        e1.printStackTrace();
+	      }
+	      // should only try this once to avoid infinite loop
+	      if (statusCode == 401) {
+	        gotAccount();
+	        return;
+	      }
+	    }
+	    Log.e(TAG, e.getMessage(), e);
+	  }
+	
+	private String format(int x) {
+		String s = "" + x;
+		if (s.length() == 1)
+			s = "0" + s;
+		return s;
+	}
+	//get server IP address
+	public static String getIPAdress(){
+		return SERVER_IP_ADDRESS;
+	}
+	
+	
+}

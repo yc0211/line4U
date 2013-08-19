@@ -1,0 +1,46 @@
+package com.cy45.calendarserver;
+
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+public class CalendarServer {
+	
+	@SuppressWarnings("null")
+	private List<Map<String, String>> search(String date){
+		Connection con = DatabaseUtils.con();
+		String sql="select * from calendar_events where date='" + date + "'";
+		Statement stmt = null;
+		ResultSet rs=null;
+		Map<String, String> events = new HashMap<String, String>();
+		List<Map<String, String>> eventsList = null;
+		try {
+			stmt= con.createStatement();
+			rs= stmt.executeQuery(sql);
+			while(rs.next()){
+				String details = rs.getString("details");
+				events.clear();
+				String paticipants = rs.getString("paticipants");
+				events.put("details", details);
+				events.put("paticipants", paticipants);
+			}
+			eventsList.add(events);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return eventsList;
+	} 
+	
+	
+	public static void main(String []args){
+		CalendarServer cs = new CalendarServer();
+		List<Map<String, String>> l = cs.search("2013-08-19");
+		String str = l.get(0).get("details");
+		System.out.println(str + ": OK with it");
+	}
+}

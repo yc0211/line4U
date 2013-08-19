@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Line4U</string>
+    <string name="action_settings">Settings</string>
+    <string name="hello_world">Hello wor88ld!</string>
+    <string name="button">button</string>
+
+</resources>

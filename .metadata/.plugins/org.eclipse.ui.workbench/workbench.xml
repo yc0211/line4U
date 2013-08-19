@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <workbench progressCount="42" version="2.0">
 <workbenchAdvisor/>
-<window height="724" maximized="true" width="1131" x="12" y="22">
+<window height="725" maximized="true" width="1281" x="-8" y="294">
 <fastViewData fastViewLocation="1024"/>
 <perspectiveBar>
 <itemSize x="160"/>
@@ -22,10 +22,12 @@
 <coolItem id="org.eclipse.wst.server.ui.internal.webbrowser.actionSet" itemType="typeToolBarContribution" x="32" y="22"/>
 <coolItem id="org.eclipse.wst.ws.explorer.explorer" itemType="typeToolBarContribution" x="32" y="22"/>
 <coolItem id="org.eclipse.wst.xml.ui.perspective.NewFileToolBar" itemType="typeToolBarContribution" x="-1" y="-1"/>
-<coolItem id="org.eclipse.wst.xml.ui.design.DesignToolBar" itemType="typeToolBarContribution" x="54" y="22"/>
+<coolItem id="org.eclipse.wst.xml.ui.design.DesignToolBar" itemType="typeToolBarContribution" x="-1" y="-1"/>
 <coolItem id="group.nav" itemType="typeGroupMarker"/>
 <coolItem id="org.eclipse.ui.workbench.navigate" itemType="typeToolBarContribution" x="152" y="22"/>
 <coolItem id="group.editor" itemType="typeGroupMarker"/>
+<coolItem id="org.eclipse.jdt.ui.ClassFileEditor" itemType="typePlaceholder" x="-1" y="-1"/>
+<coolItem id="org.eclipse.jdt.ui.PropertiesFileEditor" itemType="typePlaceholder" x="-1" y="-1"/>
 <coolItem id="org.eclipse.jdt.ui.CompilationUnitEditor" itemType="typeToolBarContribution" x="-1" y="-1"/>
 <coolItem id="com.android.ide.eclipse.editors.CommonXmlEditor" itemType="typeToolBarContribution" x="-1" y="-1"/>
 <coolItem id="group.help" itemType="typeGroupMarker"/>
@@ -39,27 +41,67 @@
 <presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory">
 <part id="0"/>
 <part id="1"/>
+<part id="2"/>
+<part id="3"/>
+<part id="4"/>
+<part id="5"/>
+<part id="6"/>
+<part id="7"/>
+<part id="8"/>
 </presentation>
 </folder>
 </info>
 </editorArea>
-<editor id="org.eclipse.jdt.ui.CompilationUnitEditor" name="MainActivity.java" partName="MainActivity.java" path="/Users/yc5518/Desktop/GCMTest/src/com/test/gcmtest/MainActivity.java" title="MainActivity.java" tooltip="GCMTest/src/com/test/gcmtest/MainActivity.java" workbook="DefaultEditorWorkbook">
-<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/GCMTest/src/com/test/gcmtest/MainActivity.java"/>
-<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="1843" selectionTopPixel="0"/>
+<editor id="com.android.ide.eclipse.editors.CommonXmlEditor" name="strings.xml" partName="strings.xml" path="/Users/yc5518/Desktop/stay_in_line/Line4U/res/values/strings.xml" title="strings.xml" tooltip="Line4U/res/values/strings.xml" workbook="DefaultEditorWorkbook">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/Line4U/res/values/strings.xml"/>
 </editor>
-<editor focus="true" id="com.android.ide.eclipse.editors.CommonXmlEditor" name="activity_main.xml" partName="activity_main.xml" path="/Users/yc5518/Desktop/stay_in_line/line4U/res/layout/activity_main.xml" title="activity_main.xml" tooltip="line4U/res/layout/activity_main.xml" workbook="DefaultEditorWorkbook">
-<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/line4U/res/layout/activity_main.xml"/>
+<editor id="com.android.ide.eclipse.editors.CommonXmlEditor" name="activity_main.xml" partName="activity_main.xml" path="/Users/yc5518/Desktop/stay_in_line/Line4U/res/layout/activity_main.xml" title="activity_main.xml" tooltip="Line4U/res/layout/activity_main.xml" workbook="DefaultEditorWorkbook">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/Line4U/res/layout/activity_main.xml"/>
+</editor>
+<editor id="org.eclipse.jdt.ui.CompilationUnitEditor" name="MainActivity.java" partName="MainActivity.java" path="/Users/yc5518/Desktop/stay_in_line/Line4U/src/com/yc5518/line4u/MainActivity.java" title="MainActivity.java" tooltip="Line4U/src/com/yc5518/line4u/MainActivity.java" workbook="DefaultEditorWorkbook">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/Line4U/src/com/yc5518/line4u/MainActivity.java"/>
+<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="2248" selectionTopPixel="621"/>
+</editor>
+<editor id="org.eclipse.jdt.ui.CompilationUnitEditor" name="createEvent.java" partName="createEvent.java" path="/Users/yc5518/Desktop/MyCalendar/src/com/test/Event/createEvent.java" title="createEvent.java" tooltip="MyCalendar/src/com/test/Event/createEvent.java" workbook="DefaultEditorWorkbook">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/MyCalendar/src/com/test/Event/createEvent.java"/>
+<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="3314" selectionTopPixel="0"/>
+</editor>
+<editor id="org.eclipse.jdt.ui.CompilationUnitEditor" name="Server.java" partName="Server.java" path="/Users/yc5518/Desktop/AppServer/testSocket/src/com/server/Server.java" title="Server.java" tooltip="testSocket/src/com/server/Server.java" workbook="DefaultEditorWorkbook">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/testSocket/src/com/server/Server.java"/>
+<editorState selectionHorizontalPixel="0" selectionLength="34" selectionOffset="13605" selectionTopPixel="4915"/>
+</editor>
+<editor id="org.eclipse.jdt.ui.CompilationUnitEditor" name="CalendarServer.java" partName="CalendarServer.java" path="/Users/yc5518/Desktop/stay_in_line/CalendarServer/src/com/cy45/calendarserver/CalendarServer.java" title="CalendarServer.java" tooltip="CalendarServer/src/com/cy45/calendarserver/CalendarServer.java" workbook="DefaultEditorWorkbook">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/CalendarServer/src/com/cy45/calendarserver/CalendarServer.java"/>
+<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="1087" selectionTopPixel="175"/>
+</editor>
+<editor focus="true" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="SocketUtils.java" partName="SocketUtils.java" path="/Users/yc5518/Desktop/stay_in_line/CalendarServer/src/com/cy45/calendarserver/SocketUtils.java" title="SocketUtils.java" tooltip="CalendarServer/src/com/cy45/calendarserver/SocketUtils.java" workbook="DefaultEditorWorkbook">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/CalendarServer/src/com/cy45/calendarserver/SocketUtils.java"/>
+<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="1489" selectionTopPixel="430"/>
+</editor>
+<editor id="org.eclipse.jdt.ui.CompilationUnitEditor" name="Settings.java" partName="Settings.java" path="/Users/yc5518/Desktop/MyCalendar/src/com/test/calendar/Settings.java" title="Settings.java" tooltip="MyCalendar/src/com/test/calendar/Settings.java" workbook="DefaultEditorWorkbook">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/MyCalendar/src/com/test/calendar/Settings.java"/>
+<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="25942" selectionTopPixel="9427"/>
+</editor>
+<editor id="com.android.ide.eclipse.editors.manifest.ManifestEditor" name="AndroidManifest.xml" partName="MyCalendar Manifest" path="/Users/yc5518/Desktop/MyCalendar/AndroidManifest.xml" title="MyCalendar Manifest" tooltip="MyCalendar/AndroidManifest.xml" workbook="DefaultEditorWorkbook">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/MyCalendar/AndroidManifest.xml"/>
 </editor>
 </editors>
 <views>
+<view id="org.eclipse.debug.ui.DebugView" partName="Debug">
+<viewState/>
+</view>
+<view id="org.eclipse.ui.views.TaskList" partName="Tasks"/>
+<view id="org.eclipse.debug.ui.BreakpointView" partName="Breakpoints">
+<viewState/>
+</view>
+<view id="org.eclipse.debug.ui.VariableView" partName="Variables">
+<viewState/>
+</view>
 <view id="org.eclipse.ui.views.ContentOutline" partName="Outline">
 <viewState/>
 </view>
 <view id="org.eclipse.ui.navigator.ProjectExplorer" partName="Project Explorer">
 <viewState CommonNavigator.LINKING_ENABLED="0" org.eclipse.ui.navigator.resources.workingSets.showTopLevelWorkingSets="0"/>
-</view>
-<view id="com.android.ide.eclipse.ddms.views.LogCatView" partName="LogCat">
-<viewState/>
 </view>
 <view id="org.eclipse.ui.views.AllMarkersView" partName="Markers">
 <viewState PRIMARY_SORT_FIELD="org.eclipse.ui.ide.allSeverityField" categoryGroup="org.eclipse.ui.ide.type" markerContentGenerator="org.eclipse.ui.ide.allMarkersGenerator" partName="Markers">
@@ -71,24 +113,24 @@
 <visible IMemento.internal.id="org.eclipse.ui.ide.markerType"/>
 </viewState>
 </view>
+<view id="com.android.ide.eclipse.ddms.views.LogCatView" partName="LogCat">
+<viewState/>
+</view>
 <view id="org.eclipse.wst.common.snippets.internal.ui.SnippetsView" partName="Snippets"/>
 <view id="org.eclipse.ui.views.PropertySheet" partName="Properties"/>
 <view id="org.eclipse.datatools.connectivity.DataSourceExplorerNavigator" partName="Data Source Explorer"/>
 <view id="org.eclipse.ui.views.ProblemView" partName="Problems">
 <viewState PRIMARY_SORT_FIELD="org.eclipse.ui.ide.severityAndDescriptionField" categoryGroup="org.eclipse.ui.ide.severity" markerContentGenerator="org.eclipse.ui.ide.problemsGenerator" partName="Problems">
 <expanded>
-<category IMemento.internal.id="Errors (1 item)"/>
+<category IMemento.internal.id="Warnings (59 items)"/>
 </expanded>
-<columnWidths org.eclipse.ui.ide.locationField="90" org.eclipse.ui.ide.markerType="90" org.eclipse.ui.ide.pathField="120" org.eclipse.ui.ide.resourceField="90" org.eclipse.ui.ide.severityAndDescriptionField="300"/>
+<columnWidths org.eclipse.ui.ide.locationField="90" org.eclipse.ui.ide.markerType="90" org.eclipse.ui.ide.pathField="120" org.eclipse.ui.ide.resourceField="90" org.eclipse.ui.ide.severityAndDescriptionField="538"/>
 <visible IMemento.internal.id="org.eclipse.ui.ide.severityAndDescriptionField"/>
 <visible IMemento.internal.id="org.eclipse.ui.ide.resourceField"/>
 <visible IMemento.internal.id="org.eclipse.ui.ide.pathField"/>
 <visible IMemento.internal.id="org.eclipse.ui.ide.locationField"/>
 <visible IMemento.internal.id="org.eclipse.ui.ide.markerType"/>
 </viewState>
-</view>
-<view id="org.eclipse.ui.console.ConsoleView" partName="Console">
-<viewState/>
 </view>
 <view id="org.eclipse.jdt.ui.PackageExplorer" partName="Package Explorer">
 <viewState group_libraries="1" layout="2" linkWithEditor="0" rootMode="1" workingSetName="">
@@ -122,6 +164,9 @@
 </customFilters>
 </viewState>
 </view>
+<view id="org.eclipse.ui.console.ConsoleView" partName="Console">
+<viewState/>
+</view>
 <view id="org.eclipse.mylyn.tasks.ui.views.tasks" partName="Task List">
 <viewState linkWithEditor="true" presentation="org.eclipse.mylyn.tasks.ui.categorized">
 <sorter groupBy="CATEGORY_QUERY">
@@ -140,10 +185,12 @@
 </viewState>
 </view>
 <view id="org.eclipse.jdt.ui.SourceView" partName="Declaration"/>
-<view id="org.eclipse.wst.server.ui.ServersView" partName="Servers"/>
+<view id="org.eclipse.wst.server.ui.ServersView" partName="Servers">
+<viewState CommonNavigator.LINKING_ENABLED="0"/>
+</view>
 <view id="org.eclipse.jdt.ui.JavadocView" partName="Javadoc"/>
 </views>
-<perspectives activePart="org.eclipse.jdt.ui.PackageExplorer" activePerspective="org.eclipse.jdt.ui.JavaPerspective">
+<perspectives activePart="com.android.ide.eclipse.ddms.views.LogCatView" activePerspective="org.eclipse.jdt.ui.JavaPerspective">
 <perspective editorAreaTrimState="2" editorAreaVisible="1" fixed="0" version="0.016">
 <descriptor class="org.eclipse.jst.j2ee.internal.perspective.J2EEPerspective" id="org.eclipse.jst.j2ee.J2EEPerspective" label="Java EE"/>
 <alwaysOnActionSet id="org.eclipse.rse.core.search.searchActionSet"/>
@@ -356,8 +403,8 @@
 <page content="org.eclipse.ui.cheatsheets.views.CheatSheetView" label="LabelNotFound"/>
 </folder>
 </info>
-<info part="org.eclipse.ui.editorss" ratio="0.25" ratioLeft="318" ratioRight="954" relationship="2" relative="left"/>
-<info folder="true" part="bottom" ratio="0.74960876" ratioLeft="479" ratioRight="160" relationship="4" relative="org.eclipse.ui.editorss">
+<info part="org.eclipse.ui.editorss" ratio="0.13711584" ratioLeft="174" ratioRight="1095" relationship="2" relative="left"/>
+<info folder="true" part="bottom" ratio="0.5188679" ratioLeft="330" ratioRight="306" relationship="4" relative="org.eclipse.ui.editorss">
 <folder activePageID="com.android.ide.eclipse.ddms.views.LogCatView" appearance="2" expanded="2">
 <page content="org.eclipse.ui.views.ProblemView" label="Problems"/>
 <page content="org.eclipse.jdt.ui.JavadocView" label="Javadoc"/>
@@ -376,7 +423,7 @@
 </presentation>
 </folder>
 </info>
-<info folder="true" part="org.eclipse.ui.internal.ViewStack@260999e" ratio="0.7494759" ratioLeft="715" ratioRight="239" relationship="2" relative="org.eclipse.ui.editorss">
+<info folder="true" part="org.eclipse.ui.internal.ViewStack@260999e" ratio="0.8003663" ratioLeft="874" ratioRight="218" relationship="2" relative="org.eclipse.ui.editorss">
 <folder activePageID="org.eclipse.mylyn.tasks.ui.views.tasks" appearance="2" expanded="2">
 <page content="org.eclipse.mylyn.tasks.ui.views.tasks" label="Task List"/>
 <presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory">
@@ -397,60 +444,291 @@
 </mainWindow>
 </layout>
 </perspective>
+<perspective editorAreaTrimState="2" editorAreaVisible="1" fixed="0" version="0.016">
+<descriptor class="org.eclipse.debug.internal.ui.DebugPerspectiveFactory" id="org.eclipse.debug.ui.DebugPerspective" label="Debug"/>
+<alwaysOnActionSet id="org.eclipse.rse.core.search.searchActionSet"/>
+<alwaysOnActionSet id="com_sysdeo_eclipse_tomcat_actionSet"/>
+<alwaysOnActionSet id="org.eclipse.mylyn.context.ui.actionSet"/>
+<alwaysOnActionSet id="org.eclipse.mylyn.doc.actionSet"/>
+<alwaysOnActionSet id="org.eclipse.mylyn.tasks.ui.navigation"/>
+<alwaysOnActionSet id="org.eclipse.ui.cheatsheets.actionSet"/>
+<alwaysOnActionSet id="org.eclipse.search.searchActionSet"/>
+<alwaysOnActionSet id="org.eclipse.ui.edit.text.actionSet.annotationNavigation"/>
+<alwaysOnActionSet id="org.eclipse.ui.edit.text.actionSet.navigation"/>
+<alwaysOnActionSet id="org.eclipse.ui.edit.text.actionSet.convertLineDelimitersTo"/>
+<alwaysOnActionSet id="org.eclipse.ui.externaltools.ExternalToolsSet"/>
+<alwaysOnActionSet id="org.eclipse.ui.actionSet.keyBindings"/>
+<alwaysOnActionSet id="org.eclipse.ui.actionSet.openFiles"/>
+<alwaysOnActionSet id="org.eclipse.debug.ui.launchActionSet"/>
+<alwaysOnActionSet id="org.eclipse.ui.NavigateActionSet"/>
+<alwaysOnActionSet id="org.eclipse.debug.ui.breakpointActionSet"/>
+<alwaysOnActionSet id="org.eclipse.jdt.debug.ui.JDTDebugActionSet"/>
+<alwaysOnActionSet id="org.eclipse.jdt.ui.JavaActionSet"/>
+<alwaysOnActionSet id="org.eclipse.debug.ui.debugActionSet"/>
+<show_view_action id="org.eclipse.debug.ui.DebugView"/>
+<show_view_action id="org.eclipse.debug.ui.VariableView"/>
+<show_view_action id="org.eclipse.debug.ui.BreakpointView"/>
+<show_view_action id="org.eclipse.debug.ui.ExpressionView"/>
+<show_view_action id="org.eclipse.ui.views.ContentOutline"/>
+<show_view_action id="org.eclipse.ui.console.ConsoleView"/>
+<show_view_action id="org.eclipse.ui.views.TaskList"/>
+<show_view_action id="com.android.ide.eclipse.ddms.views.LogCatView"/>
+<show_view_action id="com.android.ide.eclipse.ddms.views.DeviceView"/>
+<show_view_action id="org.eclipse.ant.ui.views.AntView"/>
+<show_view_action id="org.eclipse.datatools.sqltools.result.resultView"/>
+<show_view_action id="org.eclipse.pde.runtime.LogView"/>
+<show_view_action id="org.eclipse.jdt.debug.ui.DisplayView"/>
+<perspective_action id="com.android.ide.eclipse.ddms.Perspective"/>
+<perspective_action id="org.eclipse.datatools.sqltools.sqleditor.perspectives.EditorPerspective"/>
+<perspective_action id="org.eclipse.jdt.ui.JavaPerspective"/>
+<perspective_action id="org.eclipse.jdt.ui.JavaBrowsingPerspective"/>
+<perspective_action id="org.eclipse.wst.jsdt.ui.JavaPerspective"/>
+<perspective_action id="org.eclipse.wst.xml.ui.perspective"/>
+<hide_toolbar_item_id id="org.eclipse.jdt.ui.actions.OpenProjectWizard"/>
+<hide_toolbar_item_id id="org.eclipse.ui.edit.text.toggleShowSelectedElementOnly"/>
+<view id="com.android.ide.eclipse.ddms.views.LogCatView"/>
+<view id="org.eclipse.debug.ui.VariableView"/>
+<view id="org.eclipse.debug.ui.BreakpointView"/>
+<view id="org.eclipse.ui.console.ConsoleView"/>
+<view id="org.eclipse.ui.views.TaskList"/>
+<view id="org.eclipse.debug.ui.DebugView"/>
+<view id="org.eclipse.wst.server.ui.ServersView"/>
+<view id="org.eclipse.ui.views.ContentOutline"/>
+<fastViewBars/>
+<layout>
+<mainWindow>
+<info folder="true" part="org.eclipse.debug.internal.ui.NavigatorFolderView">
+<folder activePageID="org.eclipse.debug.ui.DebugView" appearance="2" expanded="2">
+<page content="org.eclipse.debug.ui.DebugView" label="Debug"/>
+<page content="org.eclipse.wst.server.ui.ServersView" label="Servers"/>
+<page content="org.eclipse.ui.views.ResourceNavigator" label="LabelNotFound"/>
+<page content="org.eclipse.jdt.ui.PackageExplorer" label="LabelNotFound"/>
+<page content="org.eclipse.jdt.ui.TypeHierarchy" label="LabelNotFound"/>
+<presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory">
+<part id="0"/>
+<part id="1"/>
+</presentation>
+</folder>
+</info>
+<info folder="true" part="stickyFolderRight" ratio="0.75" ratioLeft="954" ratioRight="318" relationship="2" relative="org.eclipse.debug.internal.ui.NavigatorFolderView">
+<folder appearance="2" expanded="2">
+<page content="org.eclipse.help.ui.HelpView" label="LabelNotFound"/>
+<page content="org.eclipse.ui.internal.introview" label="LabelNotFound"/>
+<page content="org.eclipse.ui.cheatsheets.views.CheatSheetView" label="LabelNotFound"/>
+</folder>
+</info>
+<info folder="true" part="org.eclipse.debug.internal.ui.ConsoleFolderView" ratio="0.7154088" ratioLeft="455" ratioRight="181" relationship="4" relative="org.eclipse.debug.internal.ui.NavigatorFolderView">
+<folder activePageID="org.eclipse.ui.console.ConsoleView" appearance="2" expanded="2">
+<page content="org.eclipse.ui.console.ConsoleView" label="Console"/>
+<page content="org.eclipse.ui.views.TaskList" label="Tasks"/>
+<page content="org.eclipse.ui.views.BookmarkView" label="LabelNotFound"/>
+<page content="org.eclipse.ui.views.PropertySheet" label="LabelNotFound"/>
+<page content="org.eclipse.datatools.sqltools.result.resultView" label="LabelNotFound"/>
+<page content="org.eclipse.jdt.debug.ui.DisplayView" label="LabelNotFound"/>
+<page content="org.eclipse.search.SearchResultView" label="LabelNotFound"/>
+<page content="org.eclipse.wst.xsl.jaxp.debug.ui.view1" label="LabelNotFound"/>
+<presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory">
+<part id="0"/>
+<part id="1"/>
+</presentation>
+</folder>
+</info>
+<info folder="true" part="org.eclipse.ui.internal.ViewStack@58533d05" ratio="0.5" ratioLeft="636" ratioRight="636" relationship="2" relative="org.eclipse.debug.internal.ui.ConsoleFolderView">
+<folder activePageID="com.android.ide.eclipse.ddms.views.LogCatView" appearance="2" expanded="2">
+<page content="com.android.ide.eclipse.ddms.views.LogCatView" label="LogCat"/>
+<presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory">
+<part id="0"/>
+</presentation>
+</folder>
+</info>
+<info part="org.eclipse.ui.editorss" ratio="0.4800885" ratioLeft="217" ratioRight="235" relationship="4" relative="org.eclipse.debug.internal.ui.NavigatorFolderView"/>
+<info folder="true" part="org.eclipse.debug.internal.ui.OutlineFolderView" ratio="0.75" ratioLeft="954" ratioRight="318" relationship="2" relative="org.eclipse.ui.editorss">
+<folder activePageID="org.eclipse.ui.views.ContentOutline" appearance="2" expanded="2">
+<page content="org.eclipse.ui.views.ContentOutline" label="Outline"/>
+<page content="org.eclipse.ant.ui.views.AntView" label="LabelNotFound"/>
+<presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory">
+<part id="0"/>
+</presentation>
+</folder>
+</info>
+<info folder="true" part="org.eclipse.debug.internal.ui.ToolsFolderView" ratio="0.5" ratioLeft="636" ratioRight="636" relationship="2" relative="org.eclipse.debug.internal.ui.NavigatorFolderView">
+<folder activePageID="org.eclipse.debug.ui.VariableView" appearance="2" expanded="2">
+<page content="org.eclipse.debug.ui.VariableView" label="Variables"/>
+<page content="org.eclipse.debug.ui.BreakpointView" label="Breakpoints"/>
+<page content="org.eclipse.debug.ui.ExpressionView" label="LabelNotFound"/>
+<page content="org.eclipse.debug.ui.RegisterView" label="LabelNotFound"/>
+<presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory">
+<part id="0"/>
+<part id="1"/>
+</presentation>
+</folder>
+</info>
+</mainWindow>
+</layout>
+</perspective>
 </perspectives>
 <workingSets/>
 <navigationHistory>
 <editors>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.android.ide.eclipse.editors.CommonXmlEditor" path="/Line4U/res/layout/activity_main.xml"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/CalendarServer/src/com/cy45/calendarserver/SocketUtils.java"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/CalendarServer/src/com/cy45/calendarserver/CalendarServer.java"/>
 <editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/Line4U/src/com/yc5518/line4u/MainActivity.java"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.android.ide.eclipse.editors.CommonXmlEditor" path="/line4u/res/layout/activity_main.xml"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/line4u/src/com/yc5518/line4u/MainActivity.java"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/GCMTest/src/com/test/gcmtest/MainActivity.java"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/GCMTest/src/com/test/gcmtest/GCMIntentService.java"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.android.ide.eclipse.editors.manifest.ManifestEditor" path="/GCMTest/AndroidManifest.xml"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/GCMTest/src/com/test/gcmtest/MainActivity.java"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/GCMTest/gen/com/test/gcmtest/R.java"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.android.ide.eclipse.editors.CommonXmlEditor" path="/line4U/res/layout/activity_main.xml"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/Line4U/src/com/yc5518/DES/Base64.java"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/Line4U/src/com/yc5518/DES/DES.java"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/CalendarServer/src/com/yc5518/DES/DES.java"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/CalendarServer/src/com/yc5518/DES/Base64.java"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/MyCalendar/src/com/test/calendar/Settings.java"/>
 </editors>
-<item historyLabel="activity_main.xml" index="0"/>
-<item historyLabel="MainActivity.java" index="1">
-<position info="not_deleted" x="326" y="0"/>
+<item historyLabel="SocketUtils.java" index="0">
+<position info="not_deleted" x="1292" y="0"/>
 </item>
-<item historyLabel="activity_main.xml" index="0"/>
-<item historyLabel="MainActivity.java" index="1">
-<position info="not_deleted" x="562" y="0"/>
+<item historyLabel="SocketUtils.java" index="0">
+<position info="not_deleted" x="1342" y="0"/>
 </item>
-<item historyLabel="activity_main.xml" index="2"/>
-<item historyLabel="MainActivity.java" index="3">
-<position info="not_deleted" x="0" y="0"/>
+<item historyLabel="SocketUtils.java" index="0">
+<position info="not_deleted" x="1220" y="0"/>
 </item>
-<item historyLabel="activity_main.xml" index="2"/>
-<item historyLabel="MainActivity.java" index="4">
-<position info="not_deleted" x="3" y="0"/>
+<item historyLabel="SocketUtils.java" index="0">
+<position info="not_deleted" x="1259" y="0"/>
 </item>
-<item historyLabel="MainActivity.java" index="4">
+<item historyLabel="SocketUtils.java" index="0">
+<position info="not_deleted" x="1292" y="0"/>
+</item>
+<item historyLabel="SocketUtils.java" index="0">
+<position info="not_deleted" x="1342" y="0"/>
+</item>
+<item historyLabel="SocketUtils.java" index="0">
+<position info="not_deleted" x="1220" y="0"/>
+</item>
+<item historyLabel="SocketUtils.java" index="0">
+<position info="not_deleted" x="1362" y="0"/>
+</item>
+<item historyLabel="SocketUtils.java" index="0">
+<position info="not_deleted" x="689" y="0"/>
+</item>
+<item historyLabel="SocketUtils.java" index="0">
+<position info="not_deleted" x="1168" y="0"/>
+</item>
+<item historyLabel="SocketUtils.java" index="0">
+<position info="not_deleted" x="1192" y="0"/>
+</item>
+<item historyLabel="SocketUtils.java" index="0">
+<position info="not_deleted" x="1220" y="0"/>
+</item>
+<item historyLabel="SocketUtils.java" index="0">
+<position info="not_deleted" x="1259" y="0"/>
+</item>
+<item historyLabel="SocketUtils.java" index="0">
+<position info="not_deleted" x="1292" y="0"/>
+</item>
+<item historyLabel="SocketUtils.java" index="0">
+<position info="not_deleted" x="1342" y="0"/>
+</item>
+<item historyLabel="SocketUtils.java" index="0">
+<position info="not_deleted" x="1220" y="0"/>
+</item>
+<item historyLabel="SocketUtils.java" index="0">
+<position info="not_deleted" x="1166" y="0"/>
+</item>
+<item historyLabel="SocketUtils.java" index="0">
+<position info="not_deleted" x="689" y="0"/>
+</item>
+<item historyLabel="CalendarServer.java" index="1">
+<position info="not_deleted" x="1087" y="0"/>
+</item>
+<item historyLabel="SocketUtils.java" index="0">
+<position info="not_deleted" x="689" y="0"/>
+</item>
+<item historyLabel="SocketUtils.java" index="0">
+<position info="not_deleted" x="1189" y="0"/>
+</item>
+<item historyLabel="SocketUtils.java" index="0">
+<position info="not_deleted" x="1190" y="0"/>
+</item>
+<item historyLabel="SocketUtils.java" index="0">
+<position info="not_deleted" x="689" y="0"/>
+</item>
+<item historyLabel="MainActivity.java" index="2">
+<position info="not_deleted" x="2121" y="0"/>
+</item>
+<item historyLabel="SocketUtils.java" index="0">
+<position info="not_deleted" x="1461" y="0"/>
+</item>
+<item historyLabel="Base64.java" index="3">
+<position info="not_deleted" x="3786" y="0"/>
+</item>
+<item historyLabel="DES.java" index="4">
+<position info="not_deleted" x="703" y="0"/>
+</item>
+<item historyLabel="MainActivity.java" index="2">
+<position info="not_deleted" x="2248" y="0"/>
+</item>
+<item historyLabel="CalendarServer.java" index="1">
+<position info="not_deleted" x="1087" y="0"/>
+</item>
+<item historyLabel="SocketUtils.java" index="0">
 <position/>
 </item>
-<item historyLabel="MainActivity.java" index="4">
-<position info="not_deleted" x="1784" y="1"/>
+<item historyLabel="CalendarServer.java" index="1">
+<position info="not_deleted" x="1087" y="0"/>
 </item>
-<item historyLabel="GCMIntentService.java" index="5">
-<position info="not_deleted" x="3" y="0"/>
+<item historyLabel="MainActivity.java" index="2">
+<position info="not_deleted" x="2248" y="0"/>
 </item>
-<item historyLabel="GCMIntentService.java" index="5">
-<position info="not_deleted" x="1383" y="0"/>
+<item historyLabel="CalendarServer.java" index="1">
+<position info="not_deleted" x="1087" y="0"/>
 </item>
-<item historyLabel="GCMTest Manifest" index="6"/>
-<item historyLabel="MainActivity.java" index="7">
-<position info="not_deleted" x="1843" y="0"/>
+<item historyLabel="SocketUtils.java" index="0">
+<position info="not_deleted" x="1037" y="0"/>
 </item>
-<item historyLabel="R.java" index="8">
-<position info="not_deleted" x="228" y="1"/>
+<item historyLabel="DES.java" index="5">
+<position info="not_deleted" x="0" y="0"/>
 </item>
-<item historyLabel="MainActivity.java" index="7">
-<position info="not_deleted" x="1843" y="0"/>
+<item historyLabel="DES.java" index="4">
+<position info="not_deleted" x="25" y="1216"/>
 </item>
-<item active="true" historyLabel="activity_main.xml" index="9"/>
+<item historyLabel="DES.java" index="5">
+<position info="not_deleted" x="1241" y="0"/>
+</item>
+<item historyLabel="Base64.java" index="6">
+<position info="not_deleted" x="0" y="0"/>
+</item>
+<item historyLabel="Base64.java" index="3">
+<position info="not_deleted" x="25" y="3761"/>
+</item>
+<item historyLabel="Base64.java" index="6">
+<position info="not_deleted" x="3786" y="0"/>
+</item>
+<item historyLabel="SocketUtils.java" index="0">
+<position info="not_deleted" x="1037" y="0"/>
+</item>
+<item historyLabel="SocketUtils.java" index="0">
+<position info="not_deleted" x="1025" y="1"/>
+</item>
+<item historyLabel="SocketUtils.java" index="0">
+<position info="not_deleted" x="1037" y="0"/>
+</item>
+<item historyLabel="CalendarServer.java" index="1">
+<position info="not_deleted" x="1087" y="0"/>
+</item>
+<item historyLabel="SocketUtils.java" index="0">
+<position info="not_deleted" x="991" y="7"/>
+</item>
+<item historyLabel="CalendarServer.java" index="1">
+<position info="not_deleted" x="1087" y="0"/>
+</item>
+<item historyLabel="MainActivity.java" index="2">
+<position info="not_deleted" x="2248" y="0"/>
+</item>
+<item historyLabel="Settings.java" index="7">
+<position info="not_deleted" x="25942" y="0"/>
+</item>
+<item historyLabel="SocketUtils.java" index="0">
+<position info="not_deleted" x="991" y="7"/>
+</item>
+<item active="true" historyLabel="SocketUtils.java" index="0">
+<position info="not_deleted" x="1435" y="0"/>
+</item>
 </navigationHistory>
 <input factoryID="org.eclipse.ui.internal.model.ResourceFactory" path="/" type="8"/>
 </page>
@@ -477,26 +755,50 @@
 </trimLayout>
 </window>
 <mruList>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.android.ide.eclipse.editors.CommonXmlEditor" name="activity_main.xml" tooltip="line4U/res/layout/activity_main.xml">
-<persistable path="/line4U/res/layout/activity_main.xml"/>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="Base64.java" tooltip="CalendarServer/src/com/yc5518/DES/Base64.java">
+<persistable path="/CalendarServer/src/com/yc5518/DES/Base64.java"/>
 </file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="R.java" tooltip="GCMTest/gen/com/test/gcmtest/R.java">
-<persistable path="/GCMTest/gen/com/test/gcmtest/R.java"/>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="DES.java" tooltip="CalendarServer/src/com/yc5518/DES/DES.java">
+<persistable path="/CalendarServer/src/com/yc5518/DES/DES.java"/>
 </file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="MainActivity.java" tooltip="GCMTest/src/com/test/gcmtest/MainActivity.java">
-<persistable path="/GCMTest/src/com/test/gcmtest/MainActivity.java"/>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="DES.java" tooltip="Line4U/src/com/yc5518/DES/DES.java">
+<persistable path="/Line4U/src/com/yc5518/DES/DES.java"/>
 </file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.android.ide.eclipse.editors.manifest.ManifestEditor" name="AndroidManifest.xml" tooltip="GCMTest/AndroidManifest.xml">
-<persistable path="/GCMTest/AndroidManifest.xml"/>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="Base64.java" tooltip="Line4U/src/com/yc5518/DES/Base64.java">
+<persistable path="/Line4U/src/com/yc5518/DES/Base64.java"/>
 </file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="GCMIntentService.java" tooltip="GCMTest/src/com/test/gcmtest/GCMIntentService.java">
-<persistable path="/GCMTest/src/com/test/gcmtest/GCMIntentService.java"/>
+<file factoryID="org.eclipse.jdt.ui.ClassFileEditorInputFactory" id="org.eclipse.jdt.ui.ClassFileEditor" name="InvocationTargetException.class" tooltip="java.lang.reflect.InvocationTargetException">
+<persistable org.eclipse.jdt.ui.ClassFileIdentifier="=GCMTest/\/Users\/yc5518\/Downloads\/android-sdk-macosx\/platforms\/android-18\/android.jar&lt;java.lang.reflect(InvocationTargetException.class"/>
 </file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="MainActivity.java" tooltip="Line4U/src/com/yc5518/line4u/MainActivity.java">
-<persistable path="/Line4U/src/com/yc5518/line4u/MainActivity.java"/>
+<file factoryID="org.eclipse.jdt.ui.ClassFileEditorInputFactory" id="org.eclipse.jdt.ui.ClassFileEditor" name="Socket.class" tooltip="java.net.Socket">
+<persistable org.eclipse.jdt.ui.ClassFileIdentifier="=GCMTest/\/Users\/yc5518\/Downloads\/android-sdk-macosx\/platforms\/android-18\/android.jar&lt;java.net(Socket.class"/>
 </file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.android.ide.eclipse.editors.CommonXmlEditor" name="activity_main.xml" tooltip="Line4U/res/layout/activity_main.xml">
-<persistable path="/Line4U/res/layout/activity_main.xml"/>
+<file factoryID="org.eclipse.jdt.ui.ClassFileEditorInputFactory" id="org.eclipse.jdt.ui.ClassFileEditor" name="DexFile.class" tooltip="dalvik.system.DexFile">
+<persistable org.eclipse.jdt.ui.ClassFileIdentifier="=GCMTest/\/Users\/yc5518\/Downloads\/android-sdk-macosx\/platforms\/android-18\/android.jar&lt;dalvik.system(DexFile.class"/>
+</file>
+<file factoryID="org.eclipse.jdt.ui.ClassFileEditorInputFactory" id="org.eclipse.jdt.ui.ClassFileEditor" name="ThreadGroup.class" tooltip="java.lang.ThreadGroup">
+<persistable org.eclipse.jdt.ui.ClassFileIdentifier="=GCMTest/\/Users\/yc5518\/Downloads\/android-sdk-macosx\/platforms\/android-18\/android.jar&lt;java.lang(ThreadGroup.class"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.android.ide.eclipse.editors.manifest.ManifestEditor" name="AndroidManifest.xml" tooltip="Line4U/AndroidManifest.xml">
+<persistable path="/Line4U/AndroidManifest.xml"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.android.ide.eclipse.editors.manifest.ManifestEditor" name="AndroidManifest.xml" tooltip="MyCalendar/AndroidManifest.xml">
+<persistable path="/MyCalendar/AndroidManifest.xml"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="Settings.java" tooltip="MyCalendar/src/com/test/calendar/Settings.java">
+<persistable path="/MyCalendar/src/com/test/calendar/Settings.java"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="SocketUtils.java" tooltip="CalendarServer/src/com/cy45/calendarserver/SocketUtils.java">
+<persistable path="/CalendarServer/src/com/cy45/calendarserver/SocketUtils.java"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="DatabaseUtils.java" tooltip="CalendarServer/src/com/cy45/calendarserver/DatabaseUtils.java">
+<persistable path="/CalendarServer/src/com/cy45/calendarserver/DatabaseUtils.java"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="CalendarServer.java" tooltip="CalendarServer/src/com/cy45/calendarserver/CalendarServer.java">
+<persistable path="/CalendarServer/src/com/cy45/calendarserver/CalendarServer.java"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="DatabaseUtils.java" tooltip="CalendarServer/src/DatabaseUtils.java">
+<persistable path="/CalendarServer/src/DatabaseUtils.java"/>
 </file>
 </mruList>
 </workbench>

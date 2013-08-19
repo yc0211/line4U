@@ -1,0 +1,7 @@
+package com.cy45.calendarserver;
+
+public class CalendarServer {
+	public static void main(String []args){
+		
+	}
+}

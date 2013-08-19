@@ -1,4 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <qualifiedTypeNameHistroy>
 <fullyQualifiedTypeName name="android.R"/>
+<fullyQualifiedTypeName name="com.yc5518.line4u.R.layout"/>
+<fullyQualifiedTypeName name="android.view.View.OnClickListener"/>
+<fullyQualifiedTypeName name="com.yc5518.line4u.MainActivity.ButtonLisener"/>
+<fullyQualifiedTypeName name="com.yc5518.line4u.R.id"/>
+<fullyQualifiedTypeName name="java.awt.List"/>
+<fullyQualifiedTypeName name="java.util.List"/>
+<fullyQualifiedTypeName name="com.yc5518.DES.DES"/>
 </qualifiedTypeNameHistroy>
